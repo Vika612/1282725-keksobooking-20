@@ -32,27 +32,30 @@ var getRandomArray = function (array) {
 //функция создания массива из 8-ми сгенерированных js-объектов
 
 var createAd = function () {
+  var allAds = [];
+
   for (var i = 0; i < 8; i++) {
     var locationX = getRandomNumber(0, 1200);
     var locationY = getRandomNumber(130, 630);
 
+    var ad = {
   author: {
-    avatar: img/avatars/user0
-  }
+    avatar: img/avatars/user0,
+  },
   offer: {
-    title: TITLES[i]
-    address: locationX + ',' + locationY
-    price: getRandomNumber(0, 50000)
-    type: TYPES_OF_HOUSING[i]
-    guests: getRandomNumber(1, 10)
-    checkin: CHECKING_TIME[i]
-    checkout: CHECKOUT_TIME[i]
-    features: getRandomArray(FEATURES)
-    description: DESCRIPTION[i]
-    photos: getRandomArray(PHOTOS)
-  }
+    title: TITLES[i],
+    address: locationX + ',' + locationY,
+    price: getRandomNumber(0, 50000),
+    type: TYPES_OF_HOUSING[i],
+    guests: getRandomNumber(1, 10),
+    checkin: CHECKING_TIME[i],
+    checkout: CHECKOUT_TIME[i],
+    features: getRandomArray(FEATURES),
+    description: DESCRIPTION[i],
+    photos: getRandomArray(PHOTOS),
+  },
   location: {
-    x: locationX
-    y: locationY
+    x: locationX,
+    y: locationY,
   }
 };
