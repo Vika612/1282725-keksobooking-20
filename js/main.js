@@ -1,7 +1,5 @@
 'use strict';
 
-document.querySelector('.map').classList.remove('map--faded');
-
 var COUNT = 8;
 var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
@@ -26,25 +24,25 @@ var getRandomArray = function (array) {
   return array[randomArray];
 };
 
-var createAd = function (i) {
+var createAd = function (index) {
   var locationX = getRandomNumber(0, 1400);
   var locationY = getRandomNumber(130, 630);
-  var indexImg = i + 1;
+  var indexImg = index + 1;
 
   return {
     author: {
       avatar: 'img/avatars/user0' + indexImg + '.png',
     },
     offer: {
-      title: TITLES[i],
+      title: TITLES[index],
       address: locationX + ',' + locationY,
       price: getRandomNumber(0, 50000),
-      type: TYPES_OF_HOUSING[i],
+      type: TYPES_OF_HOUSING[index],
       guests: getRandomNumber(1, 10),
-      checkin: CHECKING_TIME[i],
-      checkout: CHECKOUT_TIME[i],
+      checkin: CHECKING_TIME[index],
+      checkout: CHECKOUT_TIME[index],
       features: getRandomArray(FEATURES),
-      description: DESCRIPTION[i],
+      description: DESCRIPTION[index],
       photos: getRandomArray(PHOTOS),
     },
     location: {
@@ -54,7 +52,7 @@ var createAd = function (i) {
   };
 };
 
-var generateAd = function () {
+var generateAds = function () {
   var ads = [];
 
   for (var i = 0; i < COUNT; i++) {
@@ -63,23 +61,28 @@ var generateAd = function () {
   return ads;
 };
 
+document.querySelector('.map').classList.remove('map--faded');
+
 var pin = document.querySelector('#pin')
           .content
           .querySelector('.map__pin');
 
 var createPin = function (adv) {
   var mapPin = pin.cloneNode(true);
+  var mapImg = mapPin.querySelector('img');
+
   mapPin.style.left = adv.location.x - PIN_GAP_X + 'px';
   mapPin.style.top = adv.location.y - PIN_GAP_Y + 'px';
-  mapPin.querySelector('img').alt = adv.offer.title;
-  mapPin.querySelector('img').src = adv.author.avatar;
+  mapImg.alt = adv.offer.title;
+  mapImg.src = adv.author.avatar;
 
   return mapPin;
 };
 
 var generatePins = function () {
   var fragment = document.createDocumentFragment();
-  var createAdvert = generateAd();
+  var createAdvert = generateAds();
+
   for (var i = 0; i < COUNT; i++) {
     fragment.appendChild(createPin(createAdvert[i]));
   }
