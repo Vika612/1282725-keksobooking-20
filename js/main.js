@@ -12,6 +12,8 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var PHOTO_WIDTH = 45;
+var PHOTO_HEIGHT = 40;
 var PIN_GAP_X = 50;
 var PIN_GAP_Y = 70;
 
@@ -48,6 +50,7 @@ var createAd = function (index) {
       address: locationX + ',' + locationY,
       price: getRandomNumber(0, 50000),
       type: TYPES_OF_HOUSING[index],
+      rooms: getRandomNumber(1, 3),
       guests: getRandomNumber(1, 10),
       checkin: CHECKING_TIME[index],
       checkout: CHECKOUT_TIME[index],
@@ -105,10 +108,38 @@ generatePins();
 
 var ads = generateAds();
 
+// отрисовка преимуществ
+
+var renderFeatures = function (container, features) {
+  container.innerHTML = '';
+
+  for (var i = 0; i < features.length; i++) {
+    var feature = document.createElement('li');
+    feature.classList.add('popup__feature', 'popup__feature--' + features[i]);
+    container.appendChild(feature);
+  }
+};
+
+// отрисовка фотографий
+
+var renderPhotos = function (container, photos) {
+  container.innerHTML = '';
+
+  for (var i = 0; i < photos.length; i++) {
+    var photo = document.createElement('img');
+    photo.src = photos[i];
+    photo.width = PHOTO_WIDTH;
+    photo.height = PHOTO_HEIGHT;
+    container.appendChild(photo);
+  }
+};
+
 // создаем карточку объявления
 
 var createCard = function (card) {
   var newCard = templateCard.cloneNode(true);
+  var cardPhotos = newCard.querySelector('.popup__photos');
+  var cardFeatures = newCard.querySelector('.popup__features');
 
   newCard.querySelector('.popup__title').textContent = card.offer.title;
   newCard.querySelector('.popup__text--address').textContent = card.offer.address;
@@ -116,10 +147,11 @@ var createCard = function (card) {
   newCard.querySelector('.popup__type').textContent = TYPES_RUS[card.offer.type];
   newCard.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-  newCard.querySelector('.popup__features').innerHTML = '';
   newCard.querySelector('.popup__description').textContent = card.offer.description;
-  newCard.querySelector('.popup__photos').innerHTML = '';
   newCard.querySelector('.popup__avatar').src = card.author.avatar;
+
+  renderFeatures(cardFeatures, card.offer.features);
+  renderPhotos(cardPhotos, card.offer.photos);
 
   return newCard;
 };
