@@ -30,8 +30,18 @@ var getRandomNumber = function (min, max) {
 // массив случайной длины
 
 var getRandomArray = function (array) {
-  var randomArray = Math.floor(Math.random() * array.length);
-  return array[randomArray];
+  var newArray = [];
+  var newArrayLength = getRandomNumber(1, array.length);
+
+  for (var i = 0; i < newArrayLength; i++) {
+    var newArrItem = array[getRandomNumber(0, array.length - 1)];
+    if (newArray.includes(newArrItem)) {
+      i--;
+    } else {
+      newArray.push(newArrItem);
+    }
+  }
+  return newArray;
 };
 
 // создаем объект объявление
@@ -46,16 +56,16 @@ var createAd = function (index) {
       avatar: 'img/avatars/user0' + indexImg + '.png',
     },
     offer: {
-      title: TITLES[index],
+      title: TITLES[getRandomNumber(0, TITLES.length - 1)],
       address: locationX + ',' + locationY,
       price: getRandomNumber(0, 50000),
-      type: TYPES_OF_HOUSING[index],
+      type: TYPES_OF_HOUSING[getRandomNumber(0, TYPES_OF_HOUSING.length - 1)],
       rooms: getRandomNumber(1, 3),
       guests: getRandomNumber(1, 10),
-      checkin: CHECKING_TIME[index],
-      checkout: CHECKOUT_TIME[index],
+      checkin: CHECKING_TIME[getRandomNumber(0, CHECKING_TIME.length - 1)],
+      checkout: CHECKOUT_TIME[getRandomNumber(0, CHECKOUT_TIME.length - 1)],
       features: getRandomArray(FEATURES),
-      description: DESCRIPTION[index],
+      description: DESCRIPTION[getRandomNumber(0, DESCRIPTION.length - 1)],
       photos: getRandomArray(PHOTOS),
     },
     location: {
