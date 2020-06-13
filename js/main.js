@@ -120,36 +120,38 @@ var ads = generateAds();
 
 // отрисовка преимуществ
 
-var renderFeatures = function (container, features) {
-  container.innerHTML = '';
+var renderFeatures = function (features) {
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < features.length; i++) {
     var feature = document.createElement('li');
     feature.classList.add('popup__feature', 'popup__feature--' + features[i]);
-    container.appendChild(feature);
+    fragment.appendChild(feature);
   }
+  return fragment;
 };
 
 // отрисовка фотографий
 
-var renderPhotos = function (container, photos) {
-  container.innerHTML = '';
+var renderPhotos = function (photos) {
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < photos.length; i++) {
     var photo = document.createElement('img');
     photo.src = photos[i];
     photo.width = PHOTO_WIDTH;
     photo.height = PHOTO_HEIGHT;
-    container.appendChild(photo);
+    fragment.appendChild(photo);
   }
+  return fragment;
 };
 
 // создаем карточку объявления
 
 var createCard = function (card) {
   var newCard = templateCard.cloneNode(true);
-  var cardPhotos = newCard.querySelector('.popup__photos');
   var cardFeatures = newCard.querySelector('.popup__features');
+  var cardPhotos = newCard.querySelector('.popup__photos');
 
   newCard.querySelector('.popup__title').textContent = card.offer.title;
   newCard.querySelector('.popup__text--address').textContent = card.offer.address;
@@ -157,11 +159,13 @@ var createCard = function (card) {
   newCard.querySelector('.popup__type').textContent = TYPES_RUS[card.offer.type];
   newCard.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
+  newCard.querySelector('.popup__features').innerHTML = '';
   newCard.querySelector('.popup__description').textContent = card.offer.description;
+  newCard.querySelector('.popup__photos').innerHTML = '';
   newCard.querySelector('.popup__avatar').src = card.author.avatar;
 
-  renderFeatures(cardFeatures, card.offer.features);
-  renderPhotos(cardPhotos, card.offer.photos);
+  cardFeatures.appendChild(renderFeatures(card.offer.features));
+  cardPhotos.appendChild(renderPhotos(card.offer.photos));
 
   return newCard;
 };
