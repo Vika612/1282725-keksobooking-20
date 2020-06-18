@@ -21,6 +21,8 @@ var mapBlock = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
+// mapBlock.classList.remove('map--faded');
+
 // случайное число
 
 var getRandomNumber = function (min, max) {
@@ -85,10 +87,6 @@ var generateAds = function () {
   }
   return ads;
 };
-
-// карта переведена в активное состояние
-
-mapBlock.classList.remove('map--faded');
 
 // генерируем и добавляем метки на карту
 
@@ -174,3 +172,23 @@ var createCard = function (card) {
 
 var currentAd = document.querySelector('.map__filters-container');
 mapBlock.insertBefore(createCard(ads[0]), currentAd);
+
+// ===============================================================
+// module4-task2
+
+var adForm = document.querySelector('.ad-form');
+var pinMain = mapBlock.querySelector('.map__pin--main');
+
+var deactivationPage = function () {
+  mapBlock.classList.add('map--faded');
+  adForm.classList.add('ad-form--disabled');
+};
+
+var activationPage = function () {
+  mapBlock.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+};
+
+pinMain.addEventListener('click', function () {
+  activationPage();
+});
