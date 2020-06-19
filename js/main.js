@@ -49,7 +49,7 @@ var getRandomArray = function (array) {
 // создаем объект объявление
 
 var createAd = function (index) {
-  var locationX = getRandomNumber(0, 1400);
+  var locationX = getRandomNumber(0, 1200);
   var locationY = getRandomNumber(130, 630);
   var indexImg = index + 1;
 
@@ -112,8 +112,6 @@ var generatePins = function () {
   document.querySelector('.map__pins').appendChild(fragment);
 };
 
-generatePins();
-
 var ads = generateAds();
 
 // отрисовка преимуществ
@@ -171,24 +169,53 @@ var createCard = function (card) {
 // добавляем карточку объявления на карту
 
 var currentAd = document.querySelector('.map__filters-container');
-mapBlock.insertBefore(createCard(ads[0]), currentAd);
+//mapBlock.insertBefore(createCard(ads[0]), currentAd);
+
 
 // ===============================================================
 // module4-task2
 
-var adForm = document.querySelector('.ad-form');
 var pinMain = mapBlock.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var formFieldset = adForm.querySelectorAll('fieldset');
 
-var deactivationPage = function () {
-  mapBlock.classList.add('map--faded');
-  adForm.classList.add('ad-form--disabled');
+// блокировка полей ввода формы
+
+var disableElements = function (element) {
+  for (var i = 0; i < element.length; i++) {
+    element[i].disabled = true;
+  }
 };
+
+disableElements(formFieldset);
+
+// разблокировка полей ввода формы
+
+var enableElements = function (element) {
+  for (var i = 0; i < element.length; i++) {
+    element[i].disabled = false;
+  }
+};
+
+pinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    evt.preventDefault();
+    activationPage();
+  }
+});
+
+pinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    evt.preventDefault();
+    activationPage();
+  }
+});
+
+// переход страницы в активное состояние
 
 var activationPage = function () {
   mapBlock.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
+  enableElements(formFieldset);
+  //generatePins();
 };
-
-pinMain.addEventListener('click', function () {
-  activationPage();
-});
