@@ -14,8 +14,11 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 // var PHOTO_WIDTH = 45;
 // var PHOTO_HEIGHT = 40;
-var PIN_GAP_X = 50;
-var PIN_GAP_Y = 70;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
+var MAIN_PIN_WIDTH = 65;
+var MAIN_PIN_HEIGHT = 65;
+var PIN_TIP_HEIGHT = 22;
 
 var mapBlock = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -94,8 +97,8 @@ var createPin = function (adv) {
   var mapPin = pin.cloneNode(true);
   var mapImg = mapPin.querySelector('img');
 
-  mapPin.style.left = adv.location.x - PIN_GAP_X + 'px';
-  mapPin.style.top = adv.location.y - PIN_GAP_Y + 'px';
+  mapPin.style.left = adv.location.x - PIN_WIDTH + 'px';
+  mapPin.style.top = adv.location.y - PIN_HEIGHT + 'px';
   mapImg.alt = adv.offer.title;
   mapImg.src = adv.author.avatar;
 
@@ -178,6 +181,9 @@ var createCard = function (card) {
 var pinMain = mapBlock.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var formFieldset = adForm.querySelectorAll('fieldset');
+var inputAddress = adForm.querySelector('#address');
+var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
+var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
 // блокировка/разблокировка полей ввода формы
 
@@ -195,6 +201,7 @@ var activationPage = function () {
   mapBlock.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   toggleElements(formFieldset, false);
+  setupAddress();
   generatePins();
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
@@ -216,3 +223,17 @@ var onMapPinKeydown = function (evt) {
 
 pinMain.addEventListener('mousedown', onMapPinMousedown);
 pinMain.addEventListener('keydown', onMapPinKeydown);
+
+// начальное положение главного пина
+
+var initlPinMainPosition = function () {
+  inputAddress.value = pinCenterPositionX + ', ' + pinCenterPositionY;
+};
+initlPinMainPosition();
+
+// после активации
+
+var setupAddress = function () {
+  var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
+  inputAddress.value = pinCenterPositionX + ', ' + newPinPositionY;
+};
