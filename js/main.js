@@ -1,9 +1,10 @@
+/* eslint-disable radix */
 'use strict';
 
 var COUNT = 8;
 var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
-// var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
 var CHECKING_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -12,8 +13,8 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-// var PHOTO_WIDTH = 45;
-// var PHOTO_HEIGHT = 40;
+var PHOTO_WIDTH = 45;
+var PHOTO_HEIGHT = 40;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var MAIN_PIN_WIDTH = 65;
@@ -22,9 +23,7 @@ var PIN_TIP_HEIGHT = 22;
 
 var mapBlock = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-// var templateCard = document.querySelector('#card').content.querySelector('.map__card');
-
-// mapBlock.classList.remove('map--faded');
+var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 // случайное число
 
@@ -115,10 +114,10 @@ var generatePins = function () {
   document.querySelector('.map__pins').appendChild(fragment);
 };
 
-// var ads = generateAds();
+var ads = generateAds();
 
 // отрисовка преимуществ
-/*
+
 var renderFeatures = function (features) {
   var fragment = document.createDocumentFragment();
 
@@ -144,9 +143,9 @@ var renderPhotos = function (photos) {
   }
   return fragment;
 };
-*/
+
 // создаем карточку объявления
-/*
+
 var createCard = function (card) {
   var newCard = templateCard.cloneNode(true);
   var cardFeatures = newCard.querySelector('.popup__features');
@@ -168,10 +167,10 @@ var createCard = function (card) {
 
   return newCard;
 };
-*/
+
 // добавляем карточку объявления на карту
 
-// var currentAd = document.querySelector('.map__filters-container');
+var currentAd = document.querySelector('.map__filters-container');
 // mapBlock.insertBefore(createCard(ads[0]), currentAd);
 
 
@@ -184,6 +183,8 @@ var formFieldset = adForm.querySelectorAll('fieldset');
 var inputAddress = adForm.querySelector('#address');
 var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
 var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
+var roomsNumber = adForm.querySelector('#room_number');
+var guestsNumber = adForm.querySelector('#capacity');
 
 // блокировка/разблокировка полей ввода формы
 
@@ -205,6 +206,8 @@ var activationPage = function () {
   generatePins();
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
+  roomsNumber.addEventListener('change', matchRoomsAndGuests);
+  guestsNumber.addEventListener('change', matchRoomsAndGuests);
 };
 
 // обработка событий
@@ -231,9 +234,30 @@ var initlPinMainPosition = function () {
 };
 initlPinMainPosition();
 
-// после активации
+// положение главного пина после активации
 
 var setupAddress = function () {
   var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
   inputAddress.value = pinCenterPositionX + ', ' + newPinPositionY;
+};
+
+// соответствие количества гостей с количеством комнат
+
+var matchRoomsAndGuests = function () {
+  switch (true) {
+    case (roomsNumber.value !== '100' && guestsNumber.value === '0'):
+      roomsNumber.setCustomValidity('Пожалуйста, выберите количество гостей');
+      break;
+
+    case (roomsNumber.value === '100' && guestsNumber.value !== '0'):
+      roomsNumber.setCustomValidity('Для выбранного количества комнат размещение гостей невозможно');
+      break;
+
+    case (roomsNumber.value < guestsNumber.value && roomsNumber.value !== '100'):
+      roomsNumber.setCustomValidity('Количество комнат не должно быть меньше количества гостей');
+      break;
+
+    default:
+      roomsNumber.setCustomValidity('');
+  }
 };
