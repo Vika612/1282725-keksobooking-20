@@ -3,7 +3,7 @@
 var COUNT = 8;
 var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
-var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+// var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
 var CHECKING_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -12,14 +12,14 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var PHOTO_WIDTH = 45;
-var PHOTO_HEIGHT = 40;
+// var PHOTO_WIDTH = 45;
+// var PHOTO_HEIGHT = 40;
 var PIN_GAP_X = 50;
 var PIN_GAP_Y = 70;
 
 var mapBlock = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+// var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 // mapBlock.classList.remove('map--faded');
 
@@ -112,10 +112,10 @@ var generatePins = function () {
   document.querySelector('.map__pins').appendChild(fragment);
 };
 
-var ads = generateAds();
+// var ads = generateAds();
 
 // отрисовка преимуществ
-
+/*
 var renderFeatures = function (features) {
   var fragment = document.createDocumentFragment();
 
@@ -141,9 +141,9 @@ var renderPhotos = function (photos) {
   }
   return fragment;
 };
-
+*/
 // создаем карточку объявления
-
+/*
 var createCard = function (card) {
   var newCard = templateCard.cloneNode(true);
   var cardFeatures = newCard.querySelector('.popup__features');
@@ -165,11 +165,11 @@ var createCard = function (card) {
 
   return newCard;
 };
-
+*/
 // добавляем карточку объявления на карту
 
-var currentAd = document.querySelector('.map__filters-container');
-//mapBlock.insertBefore(createCard(ads[0]), currentAd);
+// var currentAd = document.querySelector('.map__filters-container');
+// mapBlock.insertBefore(createCard(ads[0]), currentAd);
 
 
 // ===============================================================
@@ -179,43 +179,40 @@ var pinMain = mapBlock.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var formFieldset = adForm.querySelectorAll('fieldset');
 
-// блокировка полей ввода формы
+// блокировка/разблокировка полей ввода формы
 
-var disableElements = function (element) {
+var toggleElements = function (element, value) {
   for (var i = 0; i < element.length; i++) {
-    element[i].disabled = true;
+    element[i].disabled = value;
   }
 };
 
-disableElements(formFieldset);
-
-// разблокировка полей ввода формы
-
-var enableElements = function (element) {
-  for (var i = 0; i < element.length; i++) {
-    element[i].disabled = false;
-  }
-};
-
-pinMain.addEventListener('mousedown', function (evt) {
-  if (evt.button === 0) {
-    evt.preventDefault();
-    activationPage();
-  }
-});
-
-pinMain.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    evt.preventDefault();
-    activationPage();
-  }
-});
+toggleElements(formFieldset, true);
 
 // переход страницы в активное состояние
 
 var activationPage = function () {
   mapBlock.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  enableElements(formFieldset);
-  //generatePins();
+  toggleElements(formFieldset, false);
+  generatePins();
+  pinMain.removeEventListener('mousedown', onMapPinMousedown);
+  pinMain.removeEventListener('keydown', onMapPinKeydown);
 };
+
+// обработка событий
+
+var onMapPinMousedown = function (evt) {
+  if (evt.button === 0) {
+    activationPage();
+  }
+};
+
+var onMapPinKeydown = function (evt) {
+  if (evt.key === 'Enter') {
+    activationPage();
+  }
+};
+
+pinMain.addEventListener('mousedown', onMapPinMousedown);
+pinMain.addEventListener('keydown', onMapPinKeydown);
