@@ -254,6 +254,22 @@ var matchRoomsAndGuests = function () {
     message = 'Извините, размещение гостей невозможно';
   } else if (roomsNumber.value < guestsNumber.value && roomsNumber.value !== '100') {
     message = 'Количество комнат не должно быть меньше количества гостей';
-  } guestsNumber.setCustomValidity('');
+  }
   guestsNumber.setCustomValidity(message);
 };
+
+// заголовок объявления
+
+var inputTitle = adForm.querySelector('#title');
+
+inputTitle.addEventListener('invalid', function () {
+  if (inputTitle.validity.tooShort) {
+    inputTitle.setCustomValidity('Заголовок объяления должен состоять минимум из 30-х символов');
+  } else if (inputTitle.validity.tooLong) {
+    inputTitle.setCustomValidity('Заголовок объявления не должен превышать 100 символов');
+  } else if (inputTitle.validity.valueMissing) {
+    inputTitle.setCustomValidity('Обязательное поле');
+  } else {
+    inputTitle.setCustomValidity('');
+  }
+});
