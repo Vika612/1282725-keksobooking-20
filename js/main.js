@@ -282,13 +282,18 @@ inputTitle.addEventListener('invalid', function () {
 var timeinSelect = adForm.querySelector('#timein');
 var timeoutSelect = adForm.querySelector('#timeout');
 
+var syncTime = function (timein, timeout) {
+  timeout.value = timein.value;
+};
+
 timeinSelect.addEventListener('change', function () {
-  timeoutSelect.selectedIndex = timeinSelect.selectedIndex;
+  syncTime(timeinSelect, timeoutSelect);
 });
 
 timeoutSelect.addEventListener('change', function () {
-  timeinSelect.selectedIndex = timeoutSelect.selectedIndex;
+  syncTime(timeoutSelect, timeinSelect);
 });
+
 
 // синхронизация типа жилья и минимальной цены
 
