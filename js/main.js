@@ -254,8 +254,6 @@ var matchRoomsAndGuests = function () {
     message = 'Извините, размещение гостей невозможно';
   } else if (roomsNumber.value < guestsNumber.value && roomsNumber.value !== '100') {
     message = 'Количество комнат не должно быть меньше количества гостей';
-  } else {
-    guestsNumber.setCustomValidity('');
-  }
+  } guestsNumber.setCustomValidity('');
   guestsNumber.setCustomValidity(message);
 };
