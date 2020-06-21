@@ -5,6 +5,7 @@ var COUNT = 8;
 var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
 var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
 var CHECKING_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -185,8 +186,10 @@ var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
 var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 var roomsNumber = adForm.querySelector('#room_number');
 var guestsNumber = adForm.querySelector('#capacity');
+var timeinSelect = adForm.querySelector('#timein');
+var timeoutSelect = adForm.querySelector('#timeout');
 var price = adForm.querySelector('#price');
-var typeSelect = adForm.querySelector('#type');
+var type = adForm.querySelector('#type');
 
 // блокировка/разблокировка полей ввода формы
 
@@ -279,9 +282,6 @@ inputTitle.addEventListener('invalid', function () {
 
 // синхронизация полей checkin/checkout
 
-var timeinSelect = adForm.querySelector('#timein');
-var timeoutSelect = adForm.querySelector('#timeout');
-
 var syncTime = function (timein, timeout) {
   timeout.value = timein.value;
 };
@@ -294,31 +294,10 @@ timeoutSelect.addEventListener('change', function () {
   syncTime(timeoutSelect, timeinSelect);
 });
 
-
 // синхронизация типа жилья и минимальной цены
 
-var getMinPriceFromType = function (type) {
-  switch (type) {
-    case 'bungalo':
-      price.setAttribute('min', '0');
-      price.setAttribute('placeholder', '0');
-      break;
-    case 'flat':
-      price.setAttribute('min', '1000');
-      price.setAttribute('placeholder', '1000');
-      break;
-    case 'house':
-      price.setAttribute('min', '5000');
-      price.setAttribute('placeholder', '5000');
-      break;
-    case 'palace':
-      price.setAttribute('min', '10000');
-      price.setAttribute('placeholder', '10000');
-      break;
-  }
-  return type;
+var getMinPriceFromType = function () {
+  price.min = price.placeholder = MIN_PRICE[type.value];
 };
 
-typeSelect.addEventListener('change', function () {
-  getMinPriceFromType(typeSelect.value);
-});
+type.addEventListener('change', getMinPriceFromType);
