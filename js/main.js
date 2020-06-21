@@ -263,13 +263,27 @@ var matchRoomsAndGuests = function () {
 var inputTitle = adForm.querySelector('#title');
 
 inputTitle.addEventListener('invalid', function () {
+  var message = '';
+
   if (inputTitle.validity.tooShort) {
-    inputTitle.setCustomValidity('Заголовок объяления должен состоять минимум из 30-х символов');
+    message = 'Заголовок объяления должен состоять минимум из 30-х символов';
   } else if (inputTitle.validity.tooLong) {
-    inputTitle.setCustomValidity('Заголовок объявления не должен превышать 100 символов');
+    message = 'Заголовок объявления не должен превышать 100 символов';
   } else if (inputTitle.validity.valueMissing) {
-    inputTitle.setCustomValidity('Обязательное поле');
-  } else {
-    inputTitle.setCustomValidity('');
+    message = 'Обязательное поле';
   }
+  inputTitle.setCustomValidity(message);
+});
+
+// синхронизация полей checkin/checkout
+
+var timeinSelect = adForm.querySelector('#timein');
+var timeoutSelect = adForm.querySelector('#timeout');
+
+timeinSelect.addEventListener('change', function () {
+  timeoutSelect.selectedIndex = timeinSelect.selectedIndex;
+});
+
+timeoutSelect.addEventListener('change', function () {
+  timeinSelect.selectedIndex = timeoutSelect.selectedIndex;
 });
