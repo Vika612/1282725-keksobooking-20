@@ -1,9 +1,11 @@
+/* eslint-disable radix */
 'use strict';
 
 var COUNT = 8;
 var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
 var TYPES_RUS = {'palace': 'Дворец', 'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
 var CHECKING_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -14,8 +16,11 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var PHOTO_WIDTH = 45;
 var PHOTO_HEIGHT = 40;
-var PIN_GAP_X = 50;
-var PIN_GAP_Y = 70;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
+var MAIN_PIN_WIDTH = 65;
+var MAIN_PIN_HEIGHT = 65;
+var PIN_TIP_HEIGHT = 22;
 
 var mapBlock = document.querySelector('.map');
 var pin = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -47,7 +52,7 @@ var getRandomArray = function (array) {
 // создаем объект объявление
 
 var createAd = function (index) {
-  var locationX = getRandomNumber(0, 1400);
+  var locationX = getRandomNumber(0, 1200);
   var locationY = getRandomNumber(130, 630);
   var indexImg = index + 1;
 
@@ -86,18 +91,14 @@ var generateAds = function () {
   return ads;
 };
 
-// карта переведена в активное состояние
-
-mapBlock.classList.remove('map--faded');
-
 // генерируем и добавляем метки на карту
 
 var createPin = function (adv) {
   var mapPin = pin.cloneNode(true);
   var mapImg = mapPin.querySelector('img');
 
-  mapPin.style.left = adv.location.x - PIN_GAP_X + 'px';
-  mapPin.style.top = adv.location.y - PIN_GAP_Y + 'px';
+  mapPin.style.left = adv.location.x - PIN_WIDTH + 'px';
+  mapPin.style.top = adv.location.y - PIN_HEIGHT + 'px';
   mapImg.alt = adv.offer.title;
   mapImg.src = adv.author.avatar;
 
@@ -113,8 +114,6 @@ var generatePins = function () {
   }
   document.querySelector('.map__pins').appendChild(fragment);
 };
-
-generatePins();
 
 var ads = generateAds();
 
@@ -174,3 +173,131 @@ var createCard = function (card) {
 
 var currentAd = document.querySelector('.map__filters-container');
 mapBlock.insertBefore(createCard(ads[0]), currentAd);
+
+
+// ===============================================================
+// module4-task2
+
+var pinMain = mapBlock.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var formFieldset = adForm.querySelectorAll('fieldset');
+var inputAddress = adForm.querySelector('#address');
+var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
+var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
+var roomsNumber = adForm.querySelector('#room_number');
+var guestsNumber = adForm.querySelector('#capacity');
+var timeinSelect = adForm.querySelector('#timein');
+var timeoutSelect = adForm.querySelector('#timeout');
+var price = adForm.querySelector('#price');
+var type = adForm.querySelector('#type');
+
+// блокировка/разблокировка полей ввода формы
+
+var toggleElements = function (element, value) {
+  for (var i = 0; i < element.length; i++) {
+    element[i].disabled = value;
+  }
+};
+
+toggleElements(formFieldset, true);
+
+// переход страницы в активное состояние
+
+var activationPage = function () {
+  mapBlock.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  toggleElements(formFieldset, false);
+  setupAddress();
+  generatePins();
+  pinMain.removeEventListener('mousedown', onMapPinMousedown);
+  pinMain.removeEventListener('keydown', onMapPinKeydown);
+  roomsNumber.addEventListener('change', matchRoomsAndGuests);
+  guestsNumber.addEventListener('change', matchRoomsAndGuests);
+};
+
+// обработка событий
+
+var onMapPinMousedown = function (evt) {
+  if (evt.button === 0) {
+    activationPage();
+  }
+};
+
+var onMapPinKeydown = function (evt) {
+  if (evt.key === 'Enter') {
+    activationPage();
+  }
+};
+
+pinMain.addEventListener('mousedown', onMapPinMousedown);
+pinMain.addEventListener('keydown', onMapPinKeydown);
+
+// начальное положение главного пина
+
+var initlPinMainPosition = function () {
+  inputAddress.value = pinCenterPositionX + ', ' + pinCenterPositionY;
+};
+initlPinMainPosition();
+
+// положение главного пина после активации
+
+var setupAddress = function () {
+  var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
+  inputAddress.value = pinCenterPositionX + ', ' + newPinPositionY;
+};
+
+// соответствие количества гостей с количеством комнат
+
+var matchRoomsAndGuests = function () {
+  var rooms = roomsNumber.value;
+  var guests = guestsNumber.value;
+  var message = '';
+
+  if (rooms !== '100' && guests === '0') {
+    message = 'Пожалуйста, выберите количество гостей';
+  } else if (rooms === '100' && guests !== '0') {
+    message = 'Извините, размещение гостей невозможно';
+  } else if (roomsNumber.value < guestsNumber.value && roomsNumber.value !== '100') {
+    message = 'Количество комнат не должно быть меньше количества гостей';
+  }
+  guestsNumber.setCustomValidity(message);
+};
+
+// заголовок объявления
+
+var inputTitle = adForm.querySelector('#title');
+
+inputTitle.addEventListener('invalid', function () {
+  var message = '';
+
+  if (inputTitle.validity.tooShort) {
+    message = 'Заголовок объяления должен состоять минимум из 30-х символов';
+  } else if (inputTitle.validity.tooLong) {
+    message = 'Заголовок объявления не должен превышать 100 символов';
+  } else if (inputTitle.validity.valueMissing) {
+    message = 'Обязательное поле';
+  }
+  inputTitle.setCustomValidity(message);
+});
+
+// синхронизация полей checkin/checkout
+
+var syncTime = function (timein, timeout) {
+  timeout.value = timein.value;
+};
+
+timeinSelect.addEventListener('change', function () {
+  syncTime(timeinSelect, timeoutSelect);
+});
+
+timeoutSelect.addEventListener('change', function () {
+  syncTime(timeoutSelect, timeinSelect);
+});
+
+// синхронизация типа жилья и минимальной цены
+
+var getMinPriceFromType = function () {
+  price.min = price.placeholder = MIN_PRICE[type.value];
+};
+
+type.addEventListener('change', getMinPriceFromType);
