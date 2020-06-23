@@ -107,8 +107,7 @@ var createPin = function (adv) {
   mapImg.src = adv.author.avatar;
 
   pin.addEventListener('click', function () {
-    closePopupCard();
-    createCard(adv);
+    renderCard(adv);
     document.addEventListener('keydown', onPopupCloseKeydown);
   });
 
@@ -188,6 +187,11 @@ var createCard = function (adv) {
   return newCard;
 };
 
+var renderCard = function (adv) {
+  closePopupCard();
+  mapBlock.insertBefore(createCard(adv), currentAd);
+};
+
 // закрываем карточку объявления
 
 var closePopupCard = function () {
@@ -235,7 +239,7 @@ var activationPage = function () {
   toggleElements(formFieldset, false);
   setupAddress();
   generatePins();
-  createCard(createAd(COUNT));
+  // createCard(createAd(COUNT));
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
   roomsNumber.addEventListener('change', matchRoomsAndGuests);
