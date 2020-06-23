@@ -107,13 +107,9 @@ var createPin = function (adv) {
   mapImg.src = adv.author.avatar;
 
   pin.addEventListener('click', function () {
+    closePopupCard();
     createCard(adv);
-  });
-
-  pin.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      createCard(adv);
-    }
+    document.addEventListener('keydown', onPopupCloseKeydown);
   });
 
   return pin;
@@ -171,6 +167,7 @@ var createCard = function (adv) {
   var newCard = cardTemplate.cloneNode(true);
   var cardFeatures = newCard.querySelector('.popup__features');
   var cardPhotos = newCard.querySelector('.popup__photos');
+  var popupClose = newCard.querySelector('.popup__close');
 
   newCard.querySelector('.popup__title').textContent = adv.offer.title;
   newCard.querySelector('.popup__text--address').textContent = adv.offer.address;
@@ -186,7 +183,23 @@ var createCard = function (adv) {
   cardFeatures.appendChild(renderFeatures(adv.offer.features));
   cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
+  popupClose.addEventListener('click', onPopupCloseKeydown);
+
   return newCard;
+};
+
+// закрываем карточку объявления
+
+var closePopupCard = function () {
+  var mapCard = document.querySelector('.map__card');
+  if (mapCard) {
+    mapCard.remove();
+  }
+  document.removeEventListener('keydown', onPopupCloseKeydown);
+};
+
+var onPopupCloseKeydown = function () {
+  closePopupCard();
 };
 
 // добавляем карточку объявления на карту
@@ -222,6 +235,7 @@ var activationPage = function () {
   toggleElements(formFieldset, false);
   setupAddress();
   generatePins();
+  createCard(createAd(COUNT));
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
   roomsNumber.addEventListener('change', matchRoomsAndGuests);
