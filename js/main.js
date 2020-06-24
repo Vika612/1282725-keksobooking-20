@@ -202,7 +202,7 @@ var closePopupCard = function () {
 // с помощью ESC  и  ENTER
 
 var onPopupCloseKeydown = function (evt) {
-  if (evt.key === 'Escape' || evt.key === 'Enter') {
+  if (evt.key === 'Escape' || evt.button === 0) {
     evt.preventDefault();
     closePopupCard();
   }
