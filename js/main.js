@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 'use strict';
 
 var COUNT = 8;
@@ -101,7 +100,7 @@ var createPin = function (adv) {
   var pin = pinTemplate.cloneNode(true);
   var mapImg = pin.querySelector('img');
 
-  pin.style.left = adv.location.x - PIN_WIDTH + 'px';
+  pin.style.left = adv.location.x - PIN_WIDTH / 2 + 'px';
   pin.style.top = adv.location.y - PIN_HEIGHT + 'px';
   mapImg.alt = adv.offer.title;
   mapImg.src = adv.author.avatar;
@@ -123,8 +122,6 @@ var generatePins = function () {
   }
   document.querySelector('.map__pins').appendChild(fragment);
 };
-
-var ads = generateAds();
 
 // ================================================
 
@@ -202,14 +199,18 @@ var closePopupCard = function () {
   document.removeEventListener('keydown', onPopupCloseKeydown);
 };
 
-var onPopupCloseKeydown = function () {
-  closePopupCard();
+// с помощью ESC  и  ENTER
+
+var onPopupCloseKeydown = function (evt) {
+  if (evt.key === 'Escape' || evt.key === 'Enter') {
+    evt.preventDefault();
+    closePopupCard();
+  }
 };
 
 // добавляем карточку объявления на карту
 
 var currentAd = document.querySelector('.map__filters-container');
-mapBlock.insertBefore(createCard(ads[0]), currentAd);
 
 // ===============================================================
 // module4-task2
@@ -239,7 +240,7 @@ var activationPage = function () {
   toggleElements(formFieldset, false);
   setupAddress();
   generatePins();
-  // createCard(createAd(COUNT));
+  matchRoomsAndGuests();
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
   roomsNumber.addEventListener('change', matchRoomsAndGuests);
