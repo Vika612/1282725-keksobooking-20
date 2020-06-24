@@ -241,6 +241,7 @@ var activationPage = function () {
   setupAddress();
   generatePins();
   matchRoomsAndGuests();
+  getMinPriceFromType();
   pinMain.removeEventListener('mousedown', onMapPinMousedown);
   pinMain.removeEventListener('keydown', onMapPinKeydown);
   roomsNumber.addEventListener('change', matchRoomsAndGuests);
