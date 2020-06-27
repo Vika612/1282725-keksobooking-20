@@ -65,6 +65,7 @@
     closePopupCard: closePopupCard,
     onMapPinMousedown: onMapPinMousedown,
     onMapPinKeydown: onMapPinKeydown,
+    onPopupCloseKeydown: onPopupCloseKeydown,
   };
 
 }());
