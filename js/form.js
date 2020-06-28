@@ -11,6 +11,7 @@
   var timeoutSelect = adForm.querySelector('#timeout');
   var price = adForm.querySelector('#price');
   var type = adForm.querySelector('#type');
+  var inputTitle = adForm.querySelector('#title');
 
   // блокировка/разблокировка полей ввода формы
 
@@ -38,8 +39,6 @@
   };
 
   // заголовок объявления
-
-  var inputTitle = adForm.querySelector('#title');
 
   inputTitle.addEventListener('invalid', function () {
     var message = '';
@@ -77,9 +76,6 @@
   type.addEventListener('change', getMinPriceFromType);
 
   window.form = {
-    adForm: adForm,
-    roomsNumber: roomsNumber,
-    guestsNumber: guestsNumber,
     toggleElements: toggleElements,
     matchRoomsAndGuests: matchRoomsAndGuests,
     getMinPriceFromType: getMinPriceFromType,

@@ -41,7 +41,7 @@
   var onPopupCloseKeydown = function (evt) {
     if (evt.key === 'Escape' || evt.button === 0) {
       evt.preventDefault();
-      window.map.closePopupCard();
+      closePopupCard();
     }
   };
 
@@ -59,10 +59,8 @@
 
   window.map = {
     mapBlock: mapBlock,
-    generateAds: generateAds,
     generatePins: generatePins,
     renderCard: renderCard,
-    closePopupCard: closePopupCard,
     onMapPinMousedown: onMapPinMousedown,
     onMapPinKeydown: onMapPinKeydown,
     onPopupCloseKeydown: onPopupCloseKeydown,
