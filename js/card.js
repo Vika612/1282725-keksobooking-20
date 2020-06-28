@@ -60,8 +60,6 @@
     cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
     popupClose.addEventListener('click', onPopupCloseMousedown);
-    popupClose.addEventListener('click', onPopupCloseKeydown);
-
 
     return newCard;
   };
