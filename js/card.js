@@ -77,7 +77,6 @@
       mapCard.remove();
     }
     document.removeEventListener('mousedown', onPopupCloseMousedown);
-    document.removeEventListener('keydown', onPopupCloseKeydown);
   };
 
 
