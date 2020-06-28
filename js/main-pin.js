@@ -43,10 +43,10 @@
   pinMain.addEventListener('mousedown', onMapPinMousedown);
   pinMain.addEventListener('keydown', onMapPinKeydown);
 
-  window.mainMark = {
+  window.mainPin = {
     setupAddress: setupAddress,
-    onMapPinMousedown: onMapPinMousedown,
-    onMapPinKeydown: onMapPinKeydown,
+    onMapMousedown: onMapPinMousedown,
+    onMapKeydown: onMapPinKeydown,
   };
 
 }());
