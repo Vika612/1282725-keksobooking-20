@@ -101,7 +101,6 @@
 
   window.card = {
     render: renderCard,
-    onPopupCloseMousedown: onPopupCloseMousedown,
     onPopupCloseKeydown: onPopupCloseKeydown,
   };
 
