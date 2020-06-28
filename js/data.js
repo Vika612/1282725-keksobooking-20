@@ -3,7 +3,6 @@
 (function () {
   var TITLES = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8'];
   var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
-
   var CHECKING_TIME = ['12:00', '13:00', '14:00'];
   var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];

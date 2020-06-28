@@ -20,8 +20,8 @@
     mapImg.src = adv.author.avatar;
 
     pin.addEventListener('click', function () {
-      window.cardControl.renderCard(adv);
-      document.addEventListener('keydown', window.cardControl.onPopupCloseKeydown);
+      window.card.renderCard(adv);
+      document.addEventListener('keydown', window.card.onPopupCloseKeydown);
     });
 
     return pin;

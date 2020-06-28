@@ -6,6 +6,8 @@
   var PHOTO_WIDTH = 45;
   var PHOTO_HEIGHT = 40;
 
+  var mapBlock = document.querySelector('.map');
+  var currentAd = document.querySelector('.map__filters-container');
 
   var renderFeatures = function (features) {
     var fragment = document.createDocumentFragment();
@@ -57,13 +59,38 @@
     cardFeatures.appendChild(renderFeatures(adv.offer.features));
     cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
-    popupClose.addEventListener('click', window.cardControl.onPopupCloseKeydown);
+    popupClose.addEventListener('click', onPopupCloseKeydown);
 
     return newCard;
   };
 
+
+  var renderCard = function (adv) {
+    closePopupCard();
+    mapBlock.insertBefore(createCard(adv), currentAd);
+  };
+
+
+  var closePopupCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+    document.removeEventListener('keydown', onPopupCloseKeydown);
+  };
+
+
+  var onPopupCloseKeydown = function (evt) {
+    if (evt.key === 'Escape' || evt.button === 0) {
+      evt.preventDefault();
+      closePopupCard();
+    }
+  };
+
   window.card = {
     createCard: createCard,
+    renderCard: renderCard,
+    onPopupCloseKeydown: onPopupCloseKeydown,
   };
 
 }());
