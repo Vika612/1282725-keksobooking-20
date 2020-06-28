@@ -59,7 +59,9 @@
     cardFeatures.appendChild(renderFeatures(adv.offer.features));
     cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
+    popupClose.addEventListener('click', onPopupCloseMousedown);
     popupClose.addEventListener('click', onPopupCloseKeydown);
+
 
     return newCard;
   };
@@ -76,19 +78,30 @@
     if (mapCard) {
       mapCard.remove();
     }
+    document.removeEventListener('mousedown', onPopupCloseMousedown);
     document.removeEventListener('keydown', onPopupCloseKeydown);
   };
 
 
-  var onPopupCloseKeydown = function (evt) {
-    if (evt.key === 'Escape' || evt.button === 0) {
+  var onPopupCloseMousedown = function (evt) {
+    if (evt.button === 0) {
       evt.preventDefault();
       closePopupCard();
     }
   };
 
+
+  var onPopupCloseKeydown = function (evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closePopupCard();
+    }
+  };
+
+
   window.card = {
     render: renderCard,
+    onPopupCloseMousedown: onPopupCloseMousedown,
     onPopupCloseKeydown: onPopupCloseKeydown,
   };
 
