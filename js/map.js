@@ -19,29 +19,14 @@
     var createAdvert = generateAds();
 
     for (var i = 0; i < COUNT; i++) {
-      fragment.appendChild(window.pin.createPin(createAdvert[i]));
+      fragment.appendChild(window.mark.createPin(createAdvert[i]));
     }
     document.querySelector('.map__pins').appendChild(fragment);
   };
 
 
-  var onMapPinMousedown = function (evt) {
-    if (evt.button === 0) {
-      window.main.activationPage();
-    }
-  };
-
-
-  var onMapPinKeydown = function (evt) {
-    if (evt.key === 'Enter') {
-      window.main.activationPage();
-    }
-  };
-
   window.map = {
     generatePins: generatePins,
-    onMapPinMousedown: onMapPinMousedown,
-    onMapPinKeydown: onMapPinKeydown,
   };
 
 }());

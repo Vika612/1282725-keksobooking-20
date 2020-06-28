@@ -39,7 +39,7 @@
     .content
     .querySelector('.map__card');
 
-  var createCard = function (adv) {
+  var create = function (adv) {
     var newCard = cardTemplate.cloneNode(true);
     var cardFeatures = newCard.querySelector('.popup__features');
     var cardPhotos = newCard.querySelector('.popup__photos');
@@ -65,9 +65,9 @@
   };
 
 
-  var renderCard = function (adv) {
+  var render = function (adv) {
     closePopupCard();
-    mapBlock.insertBefore(createCard(adv), currentAd);
+    mapBlock.insertBefore(create(adv), currentAd);
   };
 
 
@@ -88,8 +88,7 @@
   };
 
   window.card = {
-    createCard: createCard,
-    renderCard: renderCard,
+    render: render,
     onPopupCloseKeydown: onPopupCloseKeydown,
   };
 

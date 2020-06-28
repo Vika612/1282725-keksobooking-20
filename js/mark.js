@@ -20,14 +20,14 @@
     mapImg.src = adv.author.avatar;
 
     pin.addEventListener('click', function () {
-      window.card.renderCard(adv);
+      window.card.render(adv);
       document.addEventListener('keydown', window.card.onPopupCloseKeydown);
     });
 
     return pin;
   };
 
-  window.pin = {
+  window.mark = {
     createPin: createPin,
   };
 

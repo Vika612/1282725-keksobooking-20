@@ -10,11 +10,11 @@
   var activationPage = function () {
     mapBlock.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    window.mainPin.setupAddress();
+    window.mainMark.setupAddress();
     window.map.generatePins();
     window.form.activate();
-    pinMain.removeEventListener('mousedown', window.map.onMapPinMousedown);
-    pinMain.removeEventListener('keydown', window.map.onMapPinKeydown);
+    pinMain.removeEventListener('mousedown', window.mainMark.onMapPinMousedown);
+    pinMain.removeEventListener('keydown', window.mainMark.onMapPinKeydown);
   };
 
   window.main = {
