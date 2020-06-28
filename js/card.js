@@ -6,7 +6,6 @@
   var PHOTO_WIDTH = 45;
   var PHOTO_HEIGHT = 40;
 
-  // отрисовка преимуществ
 
   var renderFeatures = function (features) {
     var fragment = document.createDocumentFragment();
@@ -19,7 +18,6 @@
     return fragment;
   };
 
-  // отрисовка фотографий
 
   var renderPhotos = function (photos) {
     var fragment = document.createDocumentFragment();
@@ -34,7 +32,6 @@
     return fragment;
   };
 
-  // создаем карточку объявления
 
   var cardTemplate = document.querySelector('#card')
     .content
@@ -60,7 +57,7 @@
     cardFeatures.appendChild(renderFeatures(adv.offer.features));
     cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
-    popupClose.addEventListener('click', window.map.onPopupCloseKeydown);
+    popupClose.addEventListener('click', window.cardControl.onPopupCloseKeydown);
 
     return newCard;
   };

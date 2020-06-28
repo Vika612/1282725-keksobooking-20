@@ -13,7 +13,6 @@
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-  // создаем объект объявление
 
   var createAd = function (index) {
     var locationX = window.util.getRandomNumber(0, 1200);

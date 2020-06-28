@@ -5,7 +5,7 @@
   var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
 
   var adForm = document.querySelector('.ad-form');
-  var formFieldset = adForm.querySelectorAll('fieldset');
+  var formFieldset = adForm.querySelectorAll('.ad-form__element');
   var roomsNumber = adForm.querySelector('#room_number');
   var guestsNumber = adForm.querySelector('#capacity');
   var timeinSelect = adForm.querySelector('#timein');
@@ -14,7 +14,6 @@
   var type = adForm.querySelector('#type');
   var inputTitle = adForm.querySelector('#title');
 
-  // блокировка/разблокировка полей ввода формы
 
   var toggleElements = function (element, value) {
     for (var i = 0; i < element.length; i++) {
@@ -22,7 +21,6 @@
     }
   };
 
-  // соответствие количества гостей с количеством комнат
 
   var matchRoomsAndGuests = function () {
     var rooms = roomsNumber.value;
@@ -39,7 +37,6 @@
     guestsNumber.setCustomValidity(message);
   };
 
-  // заголовок объявления
 
   inputTitle.addEventListener('invalid', function () {
     var message = '';
@@ -54,7 +51,6 @@
     inputTitle.setCustomValidity(message);
   });
 
-  // синхронизация полей checkin/checkout
 
   var syncTime = function (timein, timeout) {
     timeout.value = timein.value;
@@ -68,15 +64,14 @@
     syncTime(timeoutSelect, timeinSelect);
   });
 
-  // синхронизация типа жилья и минимальной цены
-
   var getMinPriceFromType = function () {
     price.min = price.placeholder = MIN_PRICE[type.value];
   };
 
   type.addEventListener('change', getMinPriceFromType);
 
-  var setActivationPage = function () {
+
+  var activate = function () {
     toggleElements(formFieldset, false);
     matchRoomsAndGuests();
     getMinPriceFromType();
@@ -85,10 +80,7 @@
   };
 
   window.form = {
-    toggleElements: toggleElements,
-    matchRoomsAndGuests: matchRoomsAndGuests,
-    getMinPriceFromType: getMinPriceFromType,
-    setActivationPage: setActivationPage,
+    activate: activate,
   };
 
 }());

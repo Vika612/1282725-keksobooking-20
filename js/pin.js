@@ -9,6 +9,7 @@
     .content
     .querySelector('.map__pin');
 
+
   var createPin = function (adv) {
     var pin = pinTemplate.cloneNode(true);
     var mapImg = pin.querySelector('img');
@@ -19,8 +20,8 @@
     mapImg.src = adv.author.avatar;
 
     pin.addEventListener('click', function () {
-      window.map.renderCard(adv);
-      document.addEventListener('keydown', window.map.onPopupCloseKeydown);
+      window.cardControl.renderCard(adv);
+      document.addEventListener('keydown', window.cardControl.onPopupCloseKeydown);
     });
 
     return pin;

@@ -6,6 +6,7 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
+
   var getRandomArray = function (array) {
     var newArray = [];
     var newArrayLength = getRandomNumber(1, array.length);

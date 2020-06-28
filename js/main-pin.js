@@ -7,8 +7,8 @@
   var PIN_TIP_HEIGHT = 22;
 
   var adForm = document.querySelector('.ad-form');
+  var pinMain = document.querySelector('.map__pin--main');
   var inputAddress = adForm.querySelector('#address');
-  var pinMain = window.map.mapBlock.querySelector('.map__pin--main');
   var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
   var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
