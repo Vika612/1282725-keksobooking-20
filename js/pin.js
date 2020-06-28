@@ -27,8 +27,8 @@
     return pin;
   };
 
-  window.mark = {
-    createPin: createPin,
+  window.pin = {
+    create: createPin,
   };
 
 }());

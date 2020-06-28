@@ -19,7 +19,7 @@
     var createAdvert = generateAds();
 
     for (var i = 0; i < COUNT; i++) {
-      fragment.appendChild(window.mark.createPin(createAdvert[i]));
+      fragment.appendChild(window.pin.create(createAdvert[i]));
     }
     document.querySelector('.map__pins').appendChild(fragment);
   };
