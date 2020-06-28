@@ -15,7 +15,7 @@
 
   var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
-      window.main.activationPage();
+      window.main.activatePage();
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
@@ -24,7 +24,7 @@
 
   var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
-      window.main.activationPage();
+      window.main.activatePage();
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);

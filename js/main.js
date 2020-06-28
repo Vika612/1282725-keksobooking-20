@@ -6,7 +6,7 @@
   var adForm = document.querySelector('.ad-form');
 
 
-  var activationPage = function () {
+  var activatePage = function () {
     mapBlock.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     window.mainPin.setupAddress();
@@ -15,7 +15,7 @@
   };
 
   window.main = {
-    activationPage: activationPage,
+    activatePage: activatePage,
   };
 
 }());
