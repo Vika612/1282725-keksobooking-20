@@ -13,17 +13,21 @@
   var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
 
-  var onMapPinMousedown = function (evt) {
+  var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       window.main.activationPage();
     }
+    pinMain.removeEventListener('mousedown', onMainPinMousedown);
+    pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
 
-  var onMapPinKeydown = function (evt) {
+  var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
       window.main.activationPage();
     }
+    pinMain.removeEventListener('mousedown', onMainPinMousedown);
+    pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
   // начальное положение главного пина
@@ -40,13 +44,11 @@
     inputAddress.value = pinCenterPositionX + ', ' + newPinPositionY;
   };
 
-  pinMain.addEventListener('mousedown', onMapPinMousedown);
-  pinMain.addEventListener('keydown', onMapPinKeydown);
+  pinMain.addEventListener('mousedown', onMainPinMousedown);
+  pinMain.addEventListener('keydown', onMainPinKeydown);
 
   window.mainPin = {
     setupAddress: setupAddress,
-    onMapMousedown: onMapPinMousedown,
-    onMapKeydown: onMapPinKeydown,
   };
 
 }());
