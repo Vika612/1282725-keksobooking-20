@@ -5,6 +5,7 @@
   var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
 
   var adForm = document.querySelector('.ad-form');
+  var formFieldset = adForm.querySelectorAll('fieldset');
   var roomsNumber = adForm.querySelector('#room_number');
   var guestsNumber = adForm.querySelector('#capacity');
   var timeinSelect = adForm.querySelector('#timein');
@@ -75,10 +76,19 @@
 
   type.addEventListener('change', getMinPriceFromType);
 
+  var setActivationPage = function () {
+    toggleElements(formFieldset, false);
+    matchRoomsAndGuests();
+    getMinPriceFromType();
+    roomsNumber.addEventListener('change', matchRoomsAndGuests);
+    guestsNumber.addEventListener('change', matchRoomsAndGuests);
+  };
+
   window.form = {
     toggleElements: toggleElements,
     matchRoomsAndGuests: matchRoomsAndGuests,
     getMinPriceFromType: getMinPriceFromType,
+    setActivationPage: setActivationPage,
   };
 
 }());
