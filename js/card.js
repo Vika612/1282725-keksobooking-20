@@ -77,7 +77,6 @@
       mapCard.remove();
     }
     document.removeEventListener('click', onPopupCloseClick);
-    document.removeEventListener('keydown', onPopupCloseKeydown);
   };
 
 
@@ -89,7 +88,7 @@
   };
 
 
-  var onPopupCloseKeydown = function (evt) {
+  var onDocumentKeydown = function (evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       closePopupCard();
@@ -99,7 +98,7 @@
 
   window.card = {
     render: renderCard,
-    onPopupCloseKeydown: onPopupCloseKeydown,
+    onDocumentKeydown: onDocumentKeydown,
   };
 
 }());
