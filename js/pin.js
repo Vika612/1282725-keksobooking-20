@@ -21,7 +21,6 @@
 
     pin.addEventListener('click', function () {
       window.card.render(adv);
-      document.addEventListener('keydown', window.card.onDocumentKeydown);
     });
 
     return pin;

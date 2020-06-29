@@ -68,6 +68,8 @@
   var renderCard = function (adv) {
     closePopupCard();
     mapBlock.insertBefore(createCard(adv), currentAd);
+
+    document.addEventListener('keydown', onDocumentKeydown);
   };
 
 
@@ -77,6 +79,7 @@
       mapCard.remove();
     }
     document.removeEventListener('click', onPopupCloseClick);
+    document.removeEventListener('keydown', onDocumentKeydown);
   };
 
 
@@ -98,7 +101,6 @@
 
   window.card = {
     render: renderCard,
-    onDocumentKeydown: onDocumentKeydown,
   };
 
 }());
