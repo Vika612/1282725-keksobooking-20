@@ -59,7 +59,7 @@
     cardFeatures.appendChild(renderFeatures(adv.offer.features));
     cardPhotos.appendChild(renderPhotos(adv.offer.photos));
 
-    popupClose.addEventListener('click', onPopupCloseMousedown);
+    popupClose.addEventListener('click', onPopupCloseClick);
 
     return newCard;
   };
@@ -76,11 +76,12 @@
     if (mapCard) {
       mapCard.remove();
     }
-    document.removeEventListener('mousedown', onPopupCloseMousedown);
+    document.removeEventListener('click', onPopupCloseClick);
+    document.removeEventListener('keydown', onPopupCloseKeydown);
   };
 
 
-  var onPopupCloseMousedown = function (evt) {
+  var onPopupCloseClick = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
       closePopupCard();
