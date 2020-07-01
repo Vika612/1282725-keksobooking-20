@@ -75,24 +75,20 @@
         y: moveEvt.clientY
       };
 
-      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
-      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
 
       if (pinMain.offsetLeft >= mapBorder.x.max - pinMain.offsetWidth / 2) {
         pinMain.style.left = mapBorder.x.max - pinMain.offsetWidth / 2 + 'px';
-      }
-
-      if (pinMain.offsetLeft <= mapBorder.x.min - pinMain.offsetWidth / 2) {
+      } else if (pinMain.offsetLeft <= mapBorder.x.min - pinMain.offsetWidth / 2) {
         pinMain.style.left = mapBorder.x.min - pinMain.offsetWidth / 2 + 'px';
-      }
+      } else
 
       if (pinMain.offsetTop >= mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT) {
         pinMain.style.top = mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT + 'px';
-      }
-
-      if (pinMain.offsetTop <= mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT) {
+      } else if (pinMain.offsetTop <= mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT) {
         pinMain.style.top = mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT + 'px';
       }
+      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
     };
 
 
