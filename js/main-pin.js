@@ -4,7 +4,7 @@
 
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 65;
-  var PIN_TIP_HEIGHT = 22;
+  var PIN_TIP_HEIGHT = 15;
 
   var adForm = document.querySelector('.ad-form');
   var pinMain = document.querySelector('.map__pin--main');
@@ -92,7 +92,9 @@
         result.x = maxPinLeft;
       } else if (result.x <= minPinLeft) {
         result.x = minPinLeft;
-      } else if (result.y >= maxPinTop) {
+      }
+
+      if (result.y >= maxPinTop) {
         result.y = maxPinTop;
       } else if (result.y <= minPinTop) {
         result.y = minPinTop;
