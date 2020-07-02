@@ -52,6 +52,13 @@
   pinMain.addEventListener('mousedown', onMainPinMousedown);
   pinMain.addEventListener('keydown', onMainPinKeydown);
 
+  // =====================================================================
+
+  var maxPinLeft = mapBorder.x.max - pinMain.offsetWidth / 2;
+  var minPinLeft = mapBorder.x.min - pinMain.offsetWidth / 2;
+  var maxPinTop = mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT;
+  var minPinTop = mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT;
+
 
   var onMapMouseDown = function (evt) {
     evt.preventDefault();
@@ -60,6 +67,7 @@
       x: evt.clientX,
       y: evt.clientY
     };
+
 
     var onMapMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -75,20 +83,22 @@
         y: moveEvt.clientY
       };
 
+      var result = {
+        x: pinMain.offsetLeft - shift.x,
+        y: pinMain.offsetTop - shift.y
+      };
 
-      if (pinMain.offsetLeft >= mapBorder.x.max - pinMain.offsetWidth / 2) {
-        pinMain.style.left = mapBorder.x.max - pinMain.offsetWidth / 2 + 'px';
-      } else if (pinMain.offsetLeft <= mapBorder.x.min - pinMain.offsetWidth / 2) {
-        pinMain.style.left = mapBorder.x.min - pinMain.offsetWidth / 2 + 'px';
-      } else
-
-      if (pinMain.offsetTop >= mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT) {
-        pinMain.style.top = mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT + 'px';
-      } else if (pinMain.offsetTop <= mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT) {
-        pinMain.style.top = mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT + 'px';
+      if (result.x >= maxPinLeft) {
+        result.x = maxPinLeft;
+      } else if (result.x <= minPinLeft) {
+        result.x = minPinLeft;
+      } else if (result.y >= maxPinTop) {
+        result.y = maxPinTop;
+      } else if (result.y <= minPinTop) {
+        result.y = minPinTop;
       }
-      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
-      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
+      pinMain.style.left = result.x + 'px';
+      pinMain.style.top = result.y + 'px';
     };
 
 
@@ -105,6 +115,7 @@
   };
 
   pinMain.addEventListener('mousedown', onMapMouseDown);
+
 
   window.mainPin = {
     setupAddress: setupAddress,
