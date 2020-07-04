@@ -20,7 +20,6 @@
     return fragment;
   };
 
-
   var renderPhotos = function (photos) {
     var fragment = document.createDocumentFragment();
 
@@ -33,7 +32,6 @@
     }
     return fragment;
   };
-
 
   var cardTemplate = document.querySelector('#card')
     .content
@@ -64,14 +62,12 @@
     return newCard;
   };
 
-
   var renderCard = function (adv) {
     closePopupCard();
     mapBlock.insertBefore(createCard(adv), currentAd);
 
     document.addEventListener('keydown', onDocumentKeydown);
   };
-
 
   var closePopupCard = function () {
     var mapCard = document.querySelector('.map__card');
@@ -82,7 +78,6 @@
     document.removeEventListener('keydown', onDocumentKeydown);
   };
 
-
   var onPopupCloseClick = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
@@ -90,14 +85,12 @@
     }
   };
 
-
   var onDocumentKeydown = function (evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       closePopupCard();
     }
   };
-
 
   window.card = {
     render: renderCard,

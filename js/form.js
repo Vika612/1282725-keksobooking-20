@@ -14,13 +14,11 @@
   var type = adForm.querySelector('#type');
   var inputTitle = adForm.querySelector('#title');
 
-
   var toggleElements = function (element, value) {
     for (var i = 0; i < element.length; i++) {
       element[i].disabled = value;
     }
   };
-
 
   var matchRoomsAndGuests = function () {
     var rooms = roomsNumber.value;
@@ -37,7 +35,6 @@
     guestsNumber.setCustomValidity(message);
   };
 
-
   inputTitle.addEventListener('invalid', function () {
     var message = '';
 
@@ -50,7 +47,6 @@
     }
     inputTitle.setCustomValidity(message);
   });
-
 
   var syncTime = function (timein, timeout) {
     timeout.value = timein.value;

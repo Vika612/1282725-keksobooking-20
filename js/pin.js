@@ -9,7 +9,6 @@
     .content
     .querySelector('.map__pin');
 
-
   var createPin = function (adv) {
     var pin = pinTemplate.cloneNode(true);
     var mapImg = pin.querySelector('img');
