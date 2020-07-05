@@ -16,16 +16,19 @@
     y: {min: 130, max: 630},
   };
 
+  var onLoad = function (offers) {
+    window.map.generatePins(offers);
+    window.main.activatePage();
+  };
 
   var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
-      window.main.activatePage();
+      window.backend.load(onLoad);
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
-
 
   var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
@@ -36,12 +39,10 @@
     pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
-
   var initlPinMainPosition = function () {
     inputAddress.value = pinCenterPositionX + ', ' + pinCenterPositionY;
   };
   initlPinMainPosition();
-
 
   var setupAddress = function () {
     var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
@@ -67,7 +68,6 @@
       x: evt.clientX,
       y: evt.clientY
     };
-
 
     var onMapMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -103,7 +103,6 @@
       pinMain.style.top = result.y + 'px';
     };
 
-
     var onMapMouseUp = function (upEvt) {
       upEvt.preventDefault();
       setupAddress();
@@ -117,7 +116,6 @@
   };
 
   pinMain.addEventListener('mousedown', onMapMouseDown);
-
 
   window.mainPin = {
     setupAddress: setupAddress,

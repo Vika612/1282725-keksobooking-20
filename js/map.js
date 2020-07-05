@@ -2,28 +2,16 @@
 
 (function () {
 
-  var COUNT = 8;
+  var COUNT = 9;
 
-  var generateAds = function () {
-    var ads = [];
-
-    for (var i = 0; i < COUNT; i++) {
-      ads.push(window.data.createAd(i));
-    }
-    return ads;
-  };
-
-
-  var generatePins = function () {
+  var generatePins = function (offers) {
     var fragment = document.createDocumentFragment();
-    var createAdvert = generateAds();
 
     for (var i = 0; i < COUNT; i++) {
-      fragment.appendChild(window.pin.create(createAdvert[i]));
+      fragment.appendChild(window.pin.create(offers[i]));
     }
     document.querySelector('.map__pins').appendChild(fragment);
   };
-
 
   window.map = {
     generatePins: generatePins,
