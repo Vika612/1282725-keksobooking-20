@@ -18,6 +18,7 @@
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
+    window.form.toggleElements(formFieldset, true);
   };
 
   var onSuccess = function (offers) {
@@ -36,6 +37,16 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var onSuccessMessage = function () {
+    window.message.showMessage('success');
+    pageReset();
+  };
+
+  var onErrorMessage = function () {
+    window.message.showMessage('error');
+    pageReset();
+  };
+
   var pageReset = function () {
     adForm.reset();
   };
@@ -43,28 +54,9 @@
   adFormReset.addEventListener('click', pageReset);
   adFormReset.addEventListener('keydown', pageReset);
 
-  var onSuccessMessage = function () {
-    window.message.showMessage('success');
-
-    document.addEventListener('click', window.message.closeMessage);
-    document.addEventListener('keydown', window.message.closeMessage);
-    pageReset();
-  };
-
-  var onErrorMessage = function () {
-    window.message.showMessage('error');
-    document.addEventListener('click', window.message.closeMessage);
-    document.addEventListener('keydown', window.message.closeMessage);
-
-    var errorButton = document.querySelector('.error__button');
-    errorButton.addEventListener('click', window.message.closeMessage);
-    pageReset();
-  };
-
   var onSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), onSuccessMessage, onErrorMessage);
-    window.form.toggleElements(formFieldset, true);
     deactivatePage();
   };
   adForm.addEventListener('submit', onSubmit);

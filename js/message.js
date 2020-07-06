@@ -1,8 +1,14 @@
 'use strict';
 
 (function () {
-  var successTemplate = document.querySelector('#success').content.querySelector('.success');
-  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+  var successTemplate = document.querySelector('#success')
+    .content
+    .querySelector('.success');
+
+  var errorTemplate = document.querySelector('#error')
+    .content
+    .querySelector('.error');
 
   var successText = successTemplate.cloneNode(true);
   var errorText = errorTemplate.cloneNode(true);
@@ -18,12 +24,13 @@
         mainBlock.appendChild(errorText);
         break;
     }
+    document.addEventListener('click', window.message.closeMessage);
+    document.addEventListener('keydown', window.message.closeMessage);
   };
 
   var closeMessage = function (evt) {
-    if (successText && evt.keyCode === 27 || evt.button === 0) {
+    if (successText || errorText && evt.key === 'Escape' || evt.button === 0) {
       successText.remove();
-    } if (errorText && evt.keyCode === 27 || evt.button === 0) {
       errorText.remove();
     }
     document.removeEventListener('click', closeMessage);
