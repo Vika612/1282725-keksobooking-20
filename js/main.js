@@ -12,29 +12,13 @@
     adForm.classList.remove('ad-form--disabled');
     window.mainPin.setupAddress();
     window.form.activate();
-    window.backend.load(onSuccess, onError);
   };
 
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     window.form.toggleElements(formFieldset, true);
-  };
-
-  var onSuccess = function (offers) {
-    window.map.generatePins(offers);
-  };
-
-  var onError = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    window.map.removePins();
   };
 
   var onSuccessMessage = function () {
@@ -49,6 +33,7 @@
 
   var pageReset = function () {
     adForm.reset();
+    deactivatePage();
   };
 
   adFormReset.addEventListener('click', pageReset);

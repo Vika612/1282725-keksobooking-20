@@ -11,8 +11,16 @@
     document.querySelector('.map__pins').appendChild(fragment);
   };
 
+  var removePins = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    pins.forEach(function (item) {
+      item.remove();
+    });
+  };
+
   window.map = {
     generatePins: generatePins,
+    removePins: removePins
   };
 
 }());
