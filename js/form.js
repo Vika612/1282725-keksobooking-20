@@ -77,6 +77,7 @@
 
   window.form = {
     activate: activate,
+    toggleElements: toggleElements
   };
 
 }());
