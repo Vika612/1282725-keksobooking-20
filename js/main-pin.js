@@ -16,15 +16,9 @@
     y: {min: 130, max: 630},
   };
 
-  var onLoad = function (offers) {
-    window.map.generatePins(offers);
-    window.main.activatePage();
-    onSuccess(offers);
-    onError();
-  };
-
   var onSuccess = function (offers) {
     window.map.generatePins(offers);
+    window.main.activatePage();
   };
 
   var onError = function (errorMessage) {
@@ -42,7 +36,7 @@
   var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
-      window.backend.load(onLoad);
+      window.backend.load(onSuccess, onError);
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
@@ -51,7 +45,7 @@
   var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
-      window.main.activatePage();
+      window.backend.load(onSuccess, onError);
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
