@@ -16,6 +16,11 @@
     y: {min: 130, max: 630},
   };
 
+  var defaultPosition = function () {
+    pinMain.style.left = pinCenterPositionX + 'px';
+    pinMain.style.top = pinCenterPositionY + 'px';
+  };
+
   var onSuccess = function (offers) {
     window.map.generatePins(offers);
     window.main.activatePage();
@@ -37,6 +42,7 @@
     if (evt.button === 0) {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
+      window.pin.activatePage();
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
@@ -46,6 +52,7 @@
     if (evt.key === 'Enter') {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
+      window.pin.activatePage();
     }
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
@@ -131,6 +138,7 @@
 
   window.mainPin = {
     setupAddress: setupAddress,
+    defaultPosition: defaultPosition
   };
 
 }());
