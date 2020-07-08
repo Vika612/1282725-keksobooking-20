@@ -12,19 +12,15 @@
     adForm.classList.remove('ad-form--disabled');
     window.mainPin.setupAddress();
     window.form.activate();
-    window.mainPin.pinMain.removeEventListener('mousedown', window.mainPin.onMainPinMousedown);
-    window.mainPin.pinMain.removeEventListener('keydown', window.mainPin.onMainPinKeydown);
   };
 
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     window.form.toggleElements(formFieldset, true);
-    window.mainPin.defaultPosition();
     window.map.removePins();
     window.card.closePopupCard();
-    window.mainPin.pinMain.addEventListener('mousedown', window.mainPin.onMainPinMousedown);
-    window.mainPin.pinMain.addEventListener('keydown', window.mainPin.onMainPinKeydown);
+    window.mainPin.onDeactivatePage();
   };
 
   var onSuccessMessage = function () {

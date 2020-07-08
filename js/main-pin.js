@@ -16,7 +16,7 @@
     y: {min: 130, max: 630},
   };
 
-  var defaultPosition = function () {
+  var setDefaultPosition = function () {
     pinMain.style.left = pinCenterPositionX + 'px';
     pinMain.style.top = pinCenterPositionY + 'px';
   };
@@ -24,6 +24,9 @@
   var onSuccess = function (offers) {
     window.map.generatePins(offers);
     window.main.activatePage();
+
+    pinMain.removeEventListener('mousedown', onMainPinMousedown);
+    pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
   var onError = function (errorMessage) {
@@ -41,29 +44,20 @@
   var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
-      onMainPinAction();
+      window.backend.load(onSuccess, onError);
     }
   };
 
   var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
-      onMainPinAction();
+      window.backend.load(onSuccess, onError);
     }
   };
 
-  var onMainPinAction = function () {
-    window.backend.load(onSuccess, onError);
-    window.pin.activatePage();
-
-    pinMain.removeEventListener('mousedown', onMainPinMousedown);
-    pinMain.removeEventListener('keydown', onMainPinKeydown);
-  };
-
-  var initlPinMainPosition = function () {
+  var initPinMainPosition = function () {
     inputAddress.value = pinCenterPositionX + ', ' + pinCenterPositionY;
   };
-  initlPinMainPosition();
 
   var setupAddress = function () {
     var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
@@ -71,8 +65,15 @@
     inputAddress.value = newPinCenterPositionX + ', ' + newPinPositionY;
   };
 
-  pinMain.addEventListener('mousedown', onMainPinMousedown);
-  pinMain.addEventListener('keydown', onMainPinKeydown);
+  var onDeactivatePage = function () {
+    setDefaultPosition();
+    initPinMainPosition();
+
+    pinMain.addEventListener('mousedown', onMainPinMousedown);
+    pinMain.addEventListener('keydown', onMainPinKeydown);
+  };
+
+  onDeactivatePage();
 
   // =====================================================================
 
@@ -140,7 +141,7 @@
 
   window.mainPin = {
     setupAddress: setupAddress,
-    defaultPosition: defaultPosition
+    onDeactivatePage: onDeactivatePage
   };
 
 }());
