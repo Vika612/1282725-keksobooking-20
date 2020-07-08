@@ -41,19 +41,21 @@
   var onMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
-      window.backend.load(onSuccess, onError);
-      window.pin.activatePage();
+      onMainPinAction();
     }
-    pinMain.removeEventListener('mousedown', onMainPinMousedown);
-    pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
   var onMainPinKeydown = function (evt) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
-      window.backend.load(onSuccess, onError);
-      window.pin.activatePage();
+      onMainPinAction();
     }
+  };
+
+  var onMainPinAction = function () {
+    window.backend.load(onSuccess, onError);
+    window.pin.activatePage();
+
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
     pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
