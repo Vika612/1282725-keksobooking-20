@@ -22,6 +22,7 @@
     window.form.toggleElements(formFieldset, true);
     window.mainPin.defaultPosition();
     window.map.removePins();
+    window.card.closePopupCard();
     window.mainPin.pinMain.addEventListener('mousedown', window.mainPin.onMainPinMousedown);
     window.mainPin.pinMain.addEventListener('keydown', window.mainPin.onMainPinKeydown);
   };

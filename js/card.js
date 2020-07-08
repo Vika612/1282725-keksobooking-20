@@ -94,6 +94,7 @@
 
   window.card = {
     render: renderCard,
+    closePopupCard: closePopupCard
   };
 
 }());
