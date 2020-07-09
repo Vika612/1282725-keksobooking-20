@@ -14,6 +14,7 @@
   var maxPinTop = mapBorder.y.max - pinMain.offsetHeight - PIN_TIP_HEIGHT;
   var minPinTop = mapBorder.y.min - pinMain.offsetHeight - PIN_TIP_HEIGHT;
 
+
   var onMapMouseDown = function (evt) {
     evt.preventDefault();
 

@@ -9,6 +9,7 @@
   var mapBlock = document.querySelector('.map');
   var currentAd = document.querySelector('.map__filters-container');
 
+
   var renderFeatures = function (features) {
     var fragment = document.createDocumentFragment();
 

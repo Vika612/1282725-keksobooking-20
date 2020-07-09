@@ -7,9 +7,11 @@
   var adFormReset = adForm.querySelector('.ad-form__reset');
   var formFieldset = adForm.querySelectorAll('.ad-form__element');
 
+
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
+    window.mainPin.removeErrorMessage();
     window.form.activate();
   };
 

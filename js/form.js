@@ -11,9 +11,10 @@
   var guestsNumber = adForm.querySelector('#capacity');
   var timeinSelect = adForm.querySelector('#timein');
   var timeoutSelect = adForm.querySelector('#timeout');
+  var inputTitle = adForm.querySelector('#title');
   var price = adForm.querySelector('#price');
   var type = adForm.querySelector('#type');
-  var inputTitle = adForm.querySelector('#title');
+
 
   var toggleElements = function (element, value) {
     for (var i = 0; i < element.length; i++) {

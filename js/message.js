@@ -10,10 +10,10 @@
     .content
     .querySelector('.error');
 
+  var mainBlock = document.querySelector('main');
   var successText = successTemplate.cloneNode(true);
   var errorText = errorTemplate.cloneNode(true);
 
-  var mainBlock = document.querySelector('main');
 
   var showMessage = function (result) {
     switch (result) {
@@ -41,4 +41,5 @@
     closeMessage: closeMessage,
     showMessage: showMessage,
   };
+
 })();

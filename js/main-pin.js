@@ -10,6 +10,9 @@
   var positionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
   var positionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
+  var errorMessage = null;
+
+
   var setDefaultPosition = function () {
     pinMain.style.left = positionX + 'px';
     pinMain.style.top = positionY + 'px';
@@ -29,16 +32,18 @@
     pinMain.removeEventListener('keydown', onMainPinKeydown);
   };
 
-  var onError = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
+  var onError = function (errMessage) {
+    errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-show');
 
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    errorMessage.textContent = errMessage;
+    document.body.insertAdjacentElement('afterbegin', errorMessage);
+  };
+
+  var removeErrorMessage = function () {
+    if (errorMessage) {
+      errorMessage.remove();
+    }
   };
 
   var onMainPinMousedown = function (evt) {
@@ -67,7 +72,8 @@
 
   window.mainPin = {
     setCoordinates: setCoordinates,
-    onDeactivatePage: onDeactivatePage
+    onDeactivatePage: onDeactivatePage,
+    removeErrorMessage: removeErrorMessage
   };
 
 }());
