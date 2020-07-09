@@ -10,7 +10,6 @@
   var activatePage = function () {
     mapBlock.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    window.mainPin.setupAddress();
     window.form.activate();
   };
 

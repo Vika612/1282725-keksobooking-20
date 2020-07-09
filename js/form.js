@@ -6,6 +6,7 @@
 
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('.ad-form__element');
+  var inputAddress = adForm.querySelector('#address');
   var roomsNumber = adForm.querySelector('#room_number');
   var guestsNumber = adForm.querySelector('#capacity');
   var timeinSelect = adForm.querySelector('#timein');
@@ -18,6 +19,10 @@
     for (var i = 0; i < element.length; i++) {
       element[i].disabled = value;
     }
+  };
+
+  var setAddress = function (newPositionX, newPositionY) {
+    inputAddress.value = newPositionX + ', ' + newPositionY;
   };
 
   var matchRoomsAndGuests = function () {
@@ -78,6 +83,7 @@
   window.form = {
     activate: activate,
     toggleElements: toggleElements,
+    setAddress: setAddress,
     getMinPriceFromType: getMinPriceFromType
   };
 

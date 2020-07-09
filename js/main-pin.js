@@ -6,15 +6,19 @@
   var MAIN_PIN_HEIGHT = 65;
   var PIN_TIP_HEIGHT = 15;
 
-  var adForm = document.querySelector('.ad-form');
   var pinMain = document.querySelector('.map__pin--main');
-  var inputAddress = adForm.querySelector('#address');
-  var pinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
-  var pinCenterPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
+  var positionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
+  var positionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
   var setDefaultPosition = function () {
-    pinMain.style.left = pinCenterPositionX + 'px';
-    pinMain.style.top = pinCenterPositionY + 'px';
+    pinMain.style.left = positionX + 'px';
+    pinMain.style.top = positionY + 'px';
+  };
+
+  var setCoordinates = function () {
+    var newPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
+    var newPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
+    window.form.setAddress(newPositionX, newPositionY);
   };
 
   var onSuccess = function (offers) {
@@ -51,19 +55,9 @@
     }
   };
 
-  var initPinMainPosition = function () {
-    inputAddress.value = pinCenterPositionX + ', ' + pinCenterPositionY;
-  };
-
-  var setupAddress = function () {
-    var newPinPositionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
-    var newPinCenterPositionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
-    inputAddress.value = newPinCenterPositionX + ', ' + newPinPositionY;
-  };
-
   var onDeactivatePage = function () {
     setDefaultPosition();
-    initPinMainPosition();
+    window.form.setAddress(positionX, positionY);
 
     pinMain.addEventListener('mousedown', onMainPinMousedown);
     pinMain.addEventListener('keydown', onMainPinKeydown);
@@ -72,7 +66,7 @@
   onDeactivatePage();
 
   window.mainPin = {
-    setupAddress: setupAddress,
+    setCoordinates: setCoordinates,
     onDeactivatePage: onDeactivatePage
   };
 

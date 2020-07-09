@@ -26,8 +26,6 @@
     });
   };
 
-  // Функция для загрузки данных
-
   var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     request(xhr, onSuccess, onError);
@@ -35,8 +33,6 @@
     xhr.send();
 
   };
-
-  // функция для отправки данных
 
   var save = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();

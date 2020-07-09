@@ -24,7 +24,7 @@
 
     var onMapMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      window.mainPin.setupAddress();
+      window.mainPin.setCoordinates();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -58,7 +58,7 @@
 
     var onMapMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.mainPin.setupAddress();
+      window.mainPin.setCoordinates();
 
       document.removeEventListener('mousemove', onMapMouseMove);
       document.removeEventListener('mouseup', onMapMouseUp);
