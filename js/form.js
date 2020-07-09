@@ -77,7 +77,8 @@
 
   window.form = {
     activate: activate,
-    toggleElements: toggleElements
+    toggleElements: toggleElements,
+    getMinPriceFromType: getMinPriceFromType
   };
 
 }());

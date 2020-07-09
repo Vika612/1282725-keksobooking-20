@@ -20,6 +20,7 @@
     window.form.toggleElements(formFieldset, true);
     window.map.removePins();
     window.card.closePopupCard();
+    window.form.getMinPriceFromType();
     window.mainPin.onDeactivatePage();
   };
 
