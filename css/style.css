@@ -1228,6 +1228,22 @@ fieldset {
   opacity: 0.6;
 }
 
+.error-show {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  margin: 0 auto;
+
+  text-align: center;
+  font-size: 30px;
+
+  background-color: red;
+  color: #ffffff;
+
+}
+
 .visually-hidden {
   position: absolute;
 
