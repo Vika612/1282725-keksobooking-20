@@ -24,8 +24,9 @@
     window.form.setAddress(newPositionX, newPositionY);
   };
 
-  var onSuccess = function (offers) {
-    window.map.generatePins(offers);
+  var onSuccess = function (data) {
+    window.map.arrayOffers = data;
+    window.map.generatePins(window.map.arrayOffers);
     window.main.activatePage();
 
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
