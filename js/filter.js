@@ -7,18 +7,18 @@
   var housingType = mapFilters.querySelector('#housing-type');
 
   var filterHousingType = (function (adv) {
-    return housingType.value === DEFAULT_FILTER ? true : housingType.value === adv.offer.type;
+    return housingType.value === DEFAULT_FILTER || housingType.value === adv.offer.type;
   });
 
-  var filterUpdate = function (offers) {
-    var filterValue = offers.filter(filterHousingType);
+  var filterUpdate = function () {
+    var filterValue = window.mainPin.arrayOffers.filter(filterHousingType);
     window.map.generatePins(filterValue);
   };
 
   var onFilterChange = function () {
     window.card.closePopupCard();
     window.map.removePins();
-    window.backend.load(filterUpdate);
+    filterUpdate();
   };
 
   housingType.addEventListener('change', onFilterChange);

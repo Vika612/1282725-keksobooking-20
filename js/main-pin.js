@@ -27,7 +27,7 @@
   };
 
   var onSuccess = function (data) {
-    arrayOffers = data;
+    window.mainPin.arrayOffers = data;
     window.map.generatePins(arrayOffers.slice(0, MAX_OFFERS));
     window.main.activatePage();
 
