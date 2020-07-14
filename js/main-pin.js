@@ -11,7 +11,11 @@
   var positionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
   var errorMessage = null;
+  var arrayOffers = [];
 
+  var getArrayOffers = function () {
+    return arrayOffers;
+  };
 
   var setDefaultPosition = function () {
     pinMain.style.left = positionX + 'px';
@@ -24,8 +28,9 @@
     window.form.setAddress(newPositionX, newPositionY);
   };
 
-  var onSuccess = function (offers) {
-    window.map.generatePins(offers);
+  var onSuccess = function (data) {
+    arrayOffers = data;
+    window.filter.updateOffers();
     window.main.activatePage();
 
     pinMain.removeEventListener('mousedown', onMainPinMousedown);
@@ -73,7 +78,8 @@
   window.mainPin = {
     setCoordinates: setCoordinates,
     onDeactivatePage: onDeactivatePage,
-    removeErrorMessage: removeErrorMessage
+    removeErrorMessage: removeErrorMessage,
+    getArrayOffers: getArrayOffers
   };
 
 }());
