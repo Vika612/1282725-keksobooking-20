@@ -5,15 +5,12 @@
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 65;
   var PIN_TIP_HEIGHT = 15;
-  var MAX_OFFERS = 5;
 
   var pinMain = document.querySelector('.map__pin--main');
   var positionX = Math.floor(pinMain.offsetLeft + MAIN_PIN_WIDTH / 2);
   var positionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
   var errorMessage = null;
-
-  var arrayOffers = [];
 
   var setDefaultPosition = function () {
     pinMain.style.left = positionX + 'px';
@@ -28,7 +25,7 @@
 
   var onSuccess = function (data) {
     window.mainPin.arrayOffers = data;
-    window.map.generatePins(arrayOffers.slice(0, MAX_OFFERS));
+    window.filter.filterUpdate();
     window.main.activatePage();
 
     pinMain.removeEventListener('mousedown', onMainPinMousedown);

@@ -1,13 +1,17 @@
 'use strict';
 
 (function () {
+  var MAX_OFFERS = 5;
 
   var generatePins = function (offers) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < offers.length; i++) {
-      fragment.appendChild(window.pin.create(offers[i]));
-    }
+    var pinsOffer = offers.length > MAX_OFFERS ? MAX_OFFERS : offers.length;
+
+    offers.slice(0, pinsOffer).forEach(function (ad) {
+      fragment.appendChild(window.pin.create(ad));
+    });
+
     document.querySelector('.map__pins').appendChild(fragment);
   };
 

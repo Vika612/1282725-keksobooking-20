@@ -15,12 +15,14 @@
     window.map.generatePins(filterValue);
   };
 
-  var onFilterChange = function () {
+  mapFilters.addEventListener('change', (function () {
     window.card.closePopupCard();
     window.map.removePins();
     filterUpdate();
-  };
+  }));
 
-  housingType.addEventListener('change', onFilterChange);
+  window.filter = {
+    filterUpdate: filterUpdate
+  };
 
 }());
