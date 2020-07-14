@@ -11,7 +11,7 @@
   });
 
   var updateOffers = function () {
-    var filterValue = window.mainPin.getArrayOffers().filter(filterHousingType);
+    var filterValue = window.mainPin.getOffers().filter(filterHousingType);
     window.map.generatePins(filterValue);
   };
 

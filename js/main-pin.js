@@ -11,10 +11,10 @@
   var positionY = Math.floor(pinMain.offsetTop + MAIN_PIN_HEIGHT / 2);
 
   var errorMessage = null;
-  var arrayOffers = [];
+  var offers = [];
 
-  var getArrayOffers = function () {
-    return arrayOffers;
+  var getOffers = function () {
+    return offers;
   };
 
   var setDefaultPosition = function () {
@@ -29,7 +29,7 @@
   };
 
   var onSuccess = function (data) {
-    arrayOffers = data;
+    offers = data;
     window.filter.updateOffers();
     window.main.activatePage();
 
@@ -76,10 +76,10 @@
   onDeactivatePage();
 
   window.mainPin = {
+    getOffers: getOffers,
     setCoordinates: setCoordinates,
     onDeactivatePage: onDeactivatePage,
-    removeErrorMessage: removeErrorMessage,
-    getArrayOffers: getArrayOffers
+    removeErrorMessage: removeErrorMessage
   };
 
 }());
