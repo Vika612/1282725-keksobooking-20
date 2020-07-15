@@ -15,6 +15,7 @@
   var housingPrice = mapFilters.querySelector('#housing-price');
   var housingRooms = mapFilters.querySelector('#housing-rooms');
   var housingGuests = mapFilters.querySelector('#housing-guests');
+  var housingFeatures = mapFilters.querySelector('#housing-features');
 
 
   var filterHousingType = (function (adv) {
@@ -42,12 +43,20 @@
     }
   };
 
-  var filters = [filterHousingType, filterHousingPrice, filterHousingRooms, filterHousingGuests];
+  var filterHousingFeatures = function (adv) {
+    var checkFeatures = housingFeatures.querySelectorAll('input:checked');
+
+    return Array.from(checkFeatures).every(function (checkFeature) {
+      return adv.offer.features.includes(checkFeature.value);
+    });
+  };
 
   var checkFilter = function (adv) {
-    return filters.every(function (filter) {
-      return filter(adv);
-    });
+    return filterHousingType(adv)
+    && filterHousingPrice(adv)
+    && filterHousingRooms(adv)
+    && filterHousingGuests(adv)
+    && filterHousingFeatures(adv);
   };
 
   var updateOffers = function () {
