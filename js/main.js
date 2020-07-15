@@ -3,6 +3,7 @@
 (function () {
 
   var mapBlock = document.querySelector('.map');
+  var mapFilters = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
   var adFormReset = adForm.querySelector('.ad-form__reset');
   var formFieldset = adForm.querySelectorAll('.ad-form__element');
@@ -37,6 +38,7 @@
 
   var pageReset = function () {
     adForm.reset();
+    mapFilters.reset();
     deactivatePage();
   };
 
