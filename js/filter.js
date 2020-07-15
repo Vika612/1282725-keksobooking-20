@@ -64,7 +64,7 @@
     window.map.generatePins(filterValue);
   };
 
-  mapFilters.addEventListener('change', (function () {
+  mapFilters.addEventListener('change', window.debounce(function () {
     window.card.closePopupCard();
     window.map.removePins();
     updateOffers();
