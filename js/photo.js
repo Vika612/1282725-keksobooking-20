@@ -7,20 +7,12 @@
   var avatarFileChooser = document.querySelector('.ad-form__field input[type=file]');
   var avatarPreview = document.querySelector('.ad-form-header__preview img');
   var housePhotoFileChooser = document.querySelector('.ad-form__upload input[type=file]');
-  var housePhotoPreview = document.querySelector('.ad-form__photo');
-
-  var resetPhotos = function () {
-    avatarPreview.src = 'img/muffin-grey.svg';
-    housePhotoPreview.innerHTML = '';
-  };
 
   var loadPhoto = function (fileChooser, preview) {
     var file = fileChooser.files[0];
 
     if (file) {
-
       var fileName = file.name.toLowerCase();
-
       var matches = FILE_TYPES.some(function (item) {
         return fileName.endsWith(item);
       });
@@ -37,13 +29,34 @@
     }
   };
 
-  var createHousePhoto = function () {
+  var createHousePhotos = function () {
     var housePhoto = document.createElement('img');
+    var container = document.createElement('div');
+
+    container.classList.add('ad-form__photo');
+
     housePhoto.alt = 'Фото жилья';
-    housePhoto.style.width = '70px';
-    housePhoto.style.height = '70px';
-    housePhotoPreview.appendChild(housePhoto);
+    housePhoto.width = 70;
+    housePhoto.height = 70;
+
+    container.appendChild(housePhoto);
+    housePhotoFileChooser.insertAdjacentElement('afterend', container);
+
     loadPhoto(housePhotoFileChooser, housePhoto);
+  };
+
+  var removeHousePhotos = function () {
+    var housePhotoPreview = document.querySelectorAll('.ad-form__photo');
+
+    if (housePhotoPreview) {
+      housePhotoPreview.forEach(function (el) {
+        el.remove();
+      });
+    }
+  };
+
+  var removePhoto = function () {
+    avatarPreview.src = 'img/muffin-grey.svg';
   };
 
   avatarFileChooser.addEventListener('change', function () {
@@ -51,11 +64,12 @@
   });
 
   housePhotoFileChooser.addEventListener('change', function () {
-    createHousePhoto();
+    createHousePhotos();
   });
 
   window.photo = {
-    resetPhotos: resetPhotos
+    removePhoto: removePhoto,
+    removeHousePhotos: removeHousePhotos
   };
 
 }());

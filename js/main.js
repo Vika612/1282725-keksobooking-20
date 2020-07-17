@@ -23,6 +23,8 @@
     window.map.removePins();
     window.card.closePopupCard();
     window.form.getMinPriceFromType();
+    window.photo.removePhoto();
+    window.photo.removeHousePhotos();
     window.mainPin.onDeactivatePage();
   };
 
@@ -39,7 +41,6 @@
   var pageReset = function () {
     adForm.reset();
     mapFilters.reset();
-    window.photo.resetPhotos();
     deactivatePage();
   };
 
@@ -49,7 +50,6 @@
   var onSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), onSuccessMessage, onErrorMessage);
-    window.photo.resetPhotos();
     deactivatePage();
   };
   adForm.addEventListener('submit', onSubmit);
