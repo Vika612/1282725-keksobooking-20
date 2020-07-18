@@ -10,47 +10,39 @@
   var housePreview = document.querySelector('.ad-form__photo');
   var houseUpload = document.querySelector('.ad-form__upload');
 
-  var loadPhoto = function (fileChooser, preview) {
-    var file = fileChooser.files[0];
 
-    if (file) {
-      var fileName = file.name.toLowerCase();
-      var matches = FILE_TYPES.some(function (item) {
-        return fileName.endsWith(item);
-      });
-
-      if (matches) {
-        var reader = new FileReader();
-      }
-
-      reader.addEventListener('load', function () {
-        preview.src = reader.result;
-        housePreview.remove();
-      });
-
-      reader.readAsDataURL(file);
+  var loadPhoto = function (file, preview) {
+    var fileName = file.name.toLowerCase();
+    var matches = FILE_TYPES.some(function (item) {
+      return fileName.endsWith(item);
+    });
+    if (matches) {
+      var reader = new FileReader();
     }
+    reader.addEventListener('load', function () {
+      preview.src = reader.result;
+      housePreview.remove();
+    });
+    reader.readAsDataURL(file);
   };
 
-  var createHousePhotos = function () {
-    var housePhoto = document.createElement('img');
-    var container = document.createElement('div');
-
-    container.classList.add('ad-form__photo');
-
-    housePhoto.alt = 'Фото жилья';
-    housePhoto.width = 70;
-    housePhoto.height = 70;
-
-    container.appendChild(housePhoto);
-    houseUpload.insertAdjacentElement('afterend', container);
-
-    loadPhoto(housePhotoFileChooser, housePhoto);
+  var createHousePhotos = function (fileChooser) {
+    var file = fileChooser.files[0];
+    if (file) {
+      var housePhoto = document.createElement('img');
+      var container = document.createElement('div');
+      container.classList.add('ad-form__photo');
+      housePhoto.alt = 'Фото жилья';
+      housePhoto.width = 70;
+      housePhoto.height = 70;
+      container.appendChild(housePhoto);
+      houseUpload.insertAdjacentElement('afterend', container);
+      loadPhoto(file, housePhoto);
+    }
   };
 
   var removeHousePhotos = function () {
     var housePhotoPreview = document.querySelectorAll('.ad-form__photo');
-
     if (housePhotoPreview) {
       housePhotoPreview.forEach(function (el) {
         el.remove();
@@ -63,11 +55,14 @@
   };
 
   avatarFileChooser.addEventListener('change', function () {
-    loadPhoto(avatarFileChooser, avatarPreview);
+    var file = avatarFileChooser.files[0];
+    if (file) {
+      loadPhoto(file, avatarPreview);
+    }
   });
 
   housePhotoFileChooser.addEventListener('change', function () {
-    createHousePhotos();
+    createHousePhotos(housePhotoFileChooser);
   });
 
   window.photo = {
