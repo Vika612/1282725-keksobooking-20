@@ -4,9 +4,11 @@
 
   var FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-  var avatarFileChooser = document.querySelector('.ad-form__field input[type=file]');
+  var avatarFileChooser = document.querySelector('#avatar');
   var avatarPreview = document.querySelector('.ad-form-header__preview img');
-  var housePhotoFileChooser = document.querySelector('.ad-form__upload input[type=file]');
+  var housePhotoFileChooser = document.querySelector('#images');
+  var housePreview = document.querySelector('.ad-form__photo');
+  var houseUpload = document.querySelector('.ad-form__upload');
 
   var loadPhoto = function (fileChooser, preview) {
     var file = fileChooser.files[0];
@@ -23,6 +25,7 @@
 
       reader.addEventListener('load', function () {
         preview.src = reader.result;
+        housePreview.remove();
       });
 
       reader.readAsDataURL(file);
@@ -40,7 +43,7 @@
     housePhoto.height = 70;
 
     container.appendChild(housePhoto);
-    housePhotoFileChooser.insertAdjacentElement('afterend', container);
+    houseUpload.insertAdjacentElement('afterend', container);
 
     loadPhoto(housePhotoFileChooser, housePhoto);
   };
