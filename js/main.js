@@ -23,6 +23,8 @@
     window.map.removePins();
     window.card.closePopupCard();
     window.form.getMinPriceFromType();
+    window.photo.removePhoto();
+    window.photo.removeHousePhotos();
     window.mainPin.onDeactivatePage();
   };
 
