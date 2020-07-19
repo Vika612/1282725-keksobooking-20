@@ -5,14 +5,14 @@
   var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
   var URL_POST = 'https://javascript.pages.academy/keksobooking';
   var TIMEOUT_IN_MS = 10000;
-
+  var SUCCESS_CODE = 200;
 
   var request = function (xhr, onSuccess, onError) {
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCCESS_CODE) {
         onSuccess(xhr.response);
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -23,7 +23,7 @@
       onError('Произошла ошибка соединения');
     });
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + (xhr.timeout / 1000) + ' секунд');
+      onError('Запрос не успел выполниться за ' + xhr.timeout + ' секунд');
     });
   };
 

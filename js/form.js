@@ -3,6 +3,8 @@
 (function () {
 
   var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
+  var MAX_ROOMS = 100;
+  var MIN_GUESTS = 0;
 
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
@@ -31,11 +33,11 @@
     var guests = guestsNumber.value;
     var message = '';
 
-    if (rooms !== '100' && guests === '0') {
+    if (rooms !== MAX_ROOMS && guests === MIN_GUESTS) {
       message = 'Пожалуйста, выберите количество гостей';
-    } else if (rooms === '100' && guests !== '0') {
+    } else if (rooms === MAX_ROOMS && guests !== MIN_GUESTS) {
       message = 'Извините, размещение гостей невозможно';
-    } else if (roomsNumber.value < guestsNumber.value && roomsNumber.value !== '100') {
+    } else if (roomsNumber.value < guestsNumber.value && roomsNumber.value !== MAX_ROOMS) {
       message = 'Количество комнат не должно быть меньше количества гостей';
     }
     guestsNumber.setCustomValidity(message);
