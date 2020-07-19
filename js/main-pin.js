@@ -52,14 +52,14 @@
   };
 
   var onMainPinMousedown = function (evt) {
-    if (evt.button === window.util.keyCode.LEFT_MOUSE) {
+    if (evt.button === window.util.KeyCode.LEFT_MOUSE) {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
     }
   };
 
   var onMainPinKeydown = function (evt) {
-    if (evt.key === window.util.keyCode.ENTER) {
+    if (evt.key === window.util.KeyCode.ENTER) {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
     }

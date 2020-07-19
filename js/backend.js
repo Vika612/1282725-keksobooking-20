@@ -7,6 +7,7 @@
   var TIMEOUT_IN_MS = 10000;
   var SUCCESS_CODE = 200;
 
+
   var request = function (xhr, onSuccess, onError) {
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT_IN_MS;

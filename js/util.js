@@ -2,14 +2,14 @@
 
 (function () {
 
-  var keyCode = {
+  var KeyCode = {
     ENTER: 'Enter',
     ESCAPE: 'Escape',
     LEFT_MOUSE: 0
   };
 
   window.util = {
-    keyCode: keyCode
+    KeyCode: KeyCode
   };
 
 }());
