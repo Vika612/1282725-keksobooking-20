@@ -5,7 +5,7 @@
   var MIN_PRICE = {bungalo: 0, flat: 1000, house: 5000, palace: 10000};
 
   var adForm = document.querySelector('.ad-form');
-  var formFieldset = adForm.querySelectorAll('.ad-form__element');
+  var formFieldset = adForm.querySelectorAll('fieldset');
   var inputAddress = adForm.querySelector('#address');
   var roomsNumber = adForm.querySelector('#room_number');
   var guestsNumber = adForm.querySelector('#capacity');

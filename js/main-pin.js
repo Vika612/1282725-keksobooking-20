@@ -67,6 +67,7 @@
 
   var onDeactivatePage = function () {
     setDefaultPosition();
+    window.form.toggleElements(true);
     window.form.setAddress(positionX, positionY);
 
     pinMain.addEventListener('mousedown', onMainPinMousedown);

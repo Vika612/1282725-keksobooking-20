@@ -18,7 +18,6 @@
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
-    window.form.toggleElements(true);
     window.map.removePins();
     window.card.closePopupCard();
     window.form.getMinPriceFromType();
