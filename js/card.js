@@ -13,24 +13,24 @@
   var renderFeatures = function (features) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < features.length; i++) {
+    features.forEach(function (item) {
       var feature = document.createElement('li');
-      feature.classList.add('popup__feature', 'popup__feature--' + features[i]);
+      feature.classList.add('popup__feature', 'popup__feature--' + item);
       fragment.appendChild(feature);
-    }
+    });
     return fragment;
   };
 
   var renderPhotos = function (photos) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < photos.length; i++) {
+    photos.forEach(function (item) {
       var photo = document.createElement('img');
-      photo.src = photos[i];
+      photo.src = item;
       photo.width = PHOTO_WIDTH;
       photo.height = PHOTO_HEIGHT;
       fragment.appendChild(photo);
-    }
+    });
     return fragment;
   };
 

@@ -16,10 +16,10 @@
   var type = adForm.querySelector('#type');
 
 
-  var toggleElements = function (element, value) {
-    for (var i = 0; i < element.length; i++) {
-      element[i].disabled = value;
-    }
+  var toggleElements = function (value) {
+    formFieldset.forEach(function (element) {
+      element.disabled = value;
+    });
   };
 
   var setAddress = function (newPositionX, newPositionY) {
@@ -74,7 +74,7 @@
 
 
   var activate = function () {
-    toggleElements(formFieldset, false);
+    toggleElements(false);
     matchRoomsAndGuests();
     getMinPriceFromType();
     roomsNumber.addEventListener('change', matchRoomsAndGuests);

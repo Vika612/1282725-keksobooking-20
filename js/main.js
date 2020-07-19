@@ -6,7 +6,6 @@
   var mapFilters = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
   var adFormReset = adForm.querySelector('.ad-form__reset');
-  var formFieldset = adForm.querySelectorAll('.ad-form__element');
 
 
   var activatePage = function () {
@@ -19,7 +18,7 @@
   var deactivatePage = function () {
     mapBlock.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
-    window.form.toggleElements(formFieldset, true);
+    window.form.toggleElements(true);
     window.map.removePins();
     window.card.closePopupCard();
     window.form.getMinPriceFromType();
