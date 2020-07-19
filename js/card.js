@@ -80,14 +80,14 @@
   };
 
   var onPopupCloseClick = function (evt) {
-    if (evt.button === 0) {
+    if (evt.button === window.util.keyCode.LEFT_MOUSE) {
       evt.preventDefault();
       closePopupCard();
     }
   };
 
   var onDocumentKeydown = function (evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === window.util.keyCode.ESCAPE) {
       evt.preventDefault();
       closePopupCard();
     }

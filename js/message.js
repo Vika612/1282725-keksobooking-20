@@ -29,7 +29,8 @@
   };
 
   var closeMessage = function (evt) {
-    if (successText || errorText && evt.key === 'Escape' || evt.button === 0) {
+    if (successText || errorText && evt.key === window.util.keyCode.ESCAPE
+      || evt.button === window.util.keyCode.LEFT_MOUSE) {
       successText.remove();
       errorText.remove();
     }
