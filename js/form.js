@@ -7,7 +7,7 @@
   var MIN_GUESTS = 0;
 
   var mapFilters = document.querySelector('.map__filters');
-  var filtersFormElements = mapFilters.querySelectorAll('input, select');
+  var filtersFormElements = mapFilters.querySelectorAll('fieldset, select');
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
   var inputAddress = adForm.querySelector('#address');
