@@ -29,8 +29,8 @@
   };
 
   var closeMessage = function (evt) {
-    if (successText || errorText && evt.key === window.util.KeyCode.ESCAPE
-      || evt.button === window.util.KeyCode.LEFT_MOUSE) {
+    if (successText || errorText && evt.key === window.utils.KeyCode.ESCAPE
+      || evt.button === window.utils.KeyCode.LEFT_MOUSE) {
       successText.remove();
       errorText.remove();
     }

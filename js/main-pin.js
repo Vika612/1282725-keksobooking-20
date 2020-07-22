@@ -52,14 +52,14 @@
   };
 
   var onMainPinMousedown = function (evt) {
-    if (evt.button === window.util.KeyCode.LEFT_MOUSE) {
+    if (evt.button === window.utils.KeyCode.LEFT_MOUSE) {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
     }
   };
 
   var onMainPinKeydown = function (evt) {
-    if (evt.key === window.util.KeyCode.ENTER) {
+    if (evt.key === window.utils.KeyCode.ENTER) {
       evt.preventDefault();
       window.backend.load(onSuccess, onError);
     }
@@ -67,7 +67,8 @@
 
   var onDeactivatePage = function () {
     setDefaultPosition();
-    window.form.toggleElements(true);
+    window.utils.toggleElements(window.form.formFieldset, true);
+    window.utils.toggleElements(window.form.filtersFormElements, true);
     window.form.setAddress(positionX, positionY);
 
     pinMain.addEventListener('mousedown', onMainPinMousedown);

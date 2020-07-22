@@ -6,6 +6,8 @@
   var MAX_ROOMS = 100;
   var MIN_GUESTS = 0;
 
+  var mapFilters = document.querySelector('.map__filters');
+  var filtersFormElements = mapFilters.querySelectorAll('input, select');
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
   var inputAddress = adForm.querySelector('#address');
@@ -17,12 +19,6 @@
   var price = adForm.querySelector('#price');
   var type = adForm.querySelector('#type');
 
-
-  var toggleElements = function (value) {
-    formFieldset.forEach(function (element) {
-      element.disabled = value;
-    });
-  };
 
   var setAddress = function (newPositionX, newPositionY) {
     inputAddress.value = newPositionX + ', ' + newPositionY;
@@ -76,7 +72,8 @@
 
 
   var activate = function () {
-    toggleElements(false);
+    window.utils.toggleElements(formFieldset, false);
+    window.utils.toggleElements(filtersFormElements, false);
     matchRoomsAndGuests();
     getMinPriceFromType();
     roomsNumber.addEventListener('change', matchRoomsAndGuests);
@@ -84,8 +81,9 @@
   };
 
   window.form = {
+    formFieldset: formFieldset,
+    filtersFormElements: filtersFormElements,
     activate: activate,
-    toggleElements: toggleElements,
     setAddress: setAddress,
     getMinPriceFromType: getMinPriceFromType
   };
